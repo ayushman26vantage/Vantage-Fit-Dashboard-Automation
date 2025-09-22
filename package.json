@@ -1,0 +1,25 @@
+{
+  "name": "vantage-fit-dashboard-automation",
+  "version": "1.0.0",
+  "description": "Automation framework for Vantage Fit Dashboard using Playwright",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "HEADED=true playwright test",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "test:chrome": "playwright test --project='Google Chrome'",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:safari": "playwright test --project=webkit",
+    "test:edge": "playwright test --project='Microsoft Edge'",
+    "test:mobile": "playwright test --project='Mobile Chrome' --project='Mobile Safari'",
+    "report": "playwright show-report",
+    "test:createChallenge": "playwright test tests/create-challenge-navigation.spec.ts --headed --workers=8 --project='Google Chrome'",
+    "test:customChallenge": "playwright test tests/E2E-flow-create_challenges/custom-challenge.spec.ts --headed --workers=1 --project='Chrome-local' "
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.42.1",
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3"
+  }
+} 

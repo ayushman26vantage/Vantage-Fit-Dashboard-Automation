@@ -1,0 +1,50 @@
+{
+   
+    "credentials": {
+      "username": "kongkona.das@vantagecircle.com",
+      "password": "welcome"
+    },
+    "urls": {
+      "home": "**/ng/home",
+      "customChallenge": "https://dashboard-v2.vantagecircle.com/fit/create-challenge/custom-challenge"
+    },
+    "challenge": {
+      "logo": "Default Image 02",
+      "uploadLogo": "Test-Data/maison_red_roses_offwhite_under_400kb-800x800.jpg",
+      "invalidUploadLogo":"Test-Data/677-2560x1600-desktop-hd-red-dead-redemption-background-image.jpg"
+    },
+    "challengeFieldParams":{
+        "ChallengeName": "test 01"
+    },
+    "setDuration":{
+      "Date":"01-09-2025"
+    },
+
+    "TargetAudience":{
+      "DefaultDepartment":"Vantage Circle",
+      "TargetedDepartment":"Quality Analyst"
+
+    },
+     "Country":{
+      "DefaultCountry":"India",
+      "TargetedCountry":"India"
+
+    },
+
+  "ThemeName":{
+    "uploadLogo": "Test-Data/maison_red_roses_offwhite_under_400kb-800x800.jpg",
+    "EnterWeekName":"QA Week-1"
+    },
+
+  "Activitiy_Tasks":{
+    "activity":["Steps","Water Intake"],
+    "targetMinValue":"4999",
+    "targetMaxValue":"40999",
+    "NoOFDays":"6",
+    "RewardValue":"₹125",
+    "CountryPrizeView":"Iceland"
+  }
+ 
+
+}
+
