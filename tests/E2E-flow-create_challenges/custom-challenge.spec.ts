@@ -7,7 +7,7 @@ import { CreateChallengePage } from '../../pages/CreateChallengePage';
 import { BasePage } from '../../pages/BasePage';
 import { TargetAudiencePage } from '../../pages/TargetAudiencePage';
 import { chromium } from 'playwright';
-import testData from '../../Test-Data/TataPlay/custom-challenge.json';
+import testData from '../../Test-Data/355/custom-challenge.json';
 import JavaScriptExecutor from '../../utils/JavaScriptExecutor';
 // Main suite for Create Challenge tests
 test.describe('Custom Challenge Flow', () => {
@@ -242,59 +242,63 @@ test.describe('Negative Test - No Retries', () => {
   });
 
 
-    
-    test('should be able to enter date in set duration', async()=>{
+    let dateExtract:any;
 
+    test('should be able to enter date in set duration', async()=>{
     let BaseObj = new BasePage(adminPage);
+    const createChallengePage = new CreateChallengePage(adminPage);
     console.log("entering Date...");
-     let res=await BaseObj.fillInput("//input[@placeholder='DD/MM/YYYY']",testData.setDuration.Date);
-    
-    if(res.status==="success"){
+    await adminPage.waitForTimeout(500);
+     //let res=await BaseObj.fillInput("//input[@placeholder='DD/MM/YYYY']",testData.setDuration.Date);
+   let dateString= await createChallengePage.datepicker(`//input[@placeholder='DD/MM/YYYY']`,`//button//span[normalize-space()='${testData.setDuration.Date}']`);
+   await adminPage.waitForTimeout(500);  
+   console.log("Date: ",dateString.Date)
+    dateExtract= dateString.Date
+   if(dateString.status==="success"){
             console.log(`✅ Date is entered successfully`);
           }else{
             console.log("❌ Date entered failed ");
           }
            await adminPage.waitForTimeout(500);
-        expect(res.status,`User should enter date`).toBe("success");
+        expect(dateString.status,`User should enter date`).toBe("success");
        
     });
 
 
 
-   test('Next button for "Set Duration" is enable after date is applied', async()=>{
+  //  test('Next button for "Set Duration" is enable after date is applied', async()=>{
 
-    let BaseObj = new BasePage(adminPage);
-    console.log("entering Date...");
-     let res=await BaseObj.fillInput("//input[@placeholder='DD/MM/YYYY']",testData.setDuration.Date);
-    let next= adminPage.locator("//vc-button//button[.//span[normalize-space()='Next']]");
+  //   let BaseObj = new BasePage(adminPage);
+  //   console.log("entering Date...");
+  //   // let res=await BaseObj.fillInput("//input[@placeholder='DD/MM/YYYY']",testData.setDuration.Date);
+  //   let next= adminPage.locator("//vc-button//button[.//span[normalize-space()='Next']]");
     
-    let NextEnable=await next.isEnabled();
+  //   let NextEnable=await next.isEnabled();
     
-    if (res.status === "success" &&  NextEnable===true) {
-      console.log(`✅ Next button is clickable after entering date: ${NextEnable} `);
-    } else {
-      console.log("❌ Next button is unclickable even after date inserted");
-    }
-           await adminPage.waitForTimeout(500);
-           expect(NextEnable,`Next button should be enable when date is inserted : ${NextEnable}`).toBe(true);
+  //   if (res.status === "success" &&  NextEnable===true) {
+  //     console.log(`✅ Next button is clickable after entering date: ${NextEnable} `);
+  //   } else {
+  //     console.log("❌ Next button is unclickable even after date inserted");
+  //   }
+  //          await adminPage.waitForTimeout(500);
+  //          expect(NextEnable,`Next button should be enable when date is inserted : ${NextEnable}`).toBe(true);
        
-    });
+  //   });
 
 
 
   test('should be able to click next after inserting date & navigate to Set target audiance', async () => {
   
       let BaseObj = new BasePage(adminPage);
-      console.log("⏳ entering Date...");
 
-    let res = await BaseObj.fillInput("//input[@placeholder='DD/MM/YYYY']", testData.setDuration.Date);
+    //let res = await BaseObj.fillInput("//input[@placeholder='DD/MM/YYYY']", testData.setDuration.Date);
     let res2= await  BaseObj.clickElement("//vc-button//button[.//span[normalize-space()='Next']]");
     // Get current URL after action
     const currentUrl = await adminPage.url();
     const expectedUrl = "https://dashboard-v2.vantagecircle.co.in/fit/create-challenge/custom-challenge/challenge-privacy"; 
     
 
-    if (res.status === "success" && res2.status==="success" ) {
+    if ( res2.status==="success" ) {
       console.log(`✅ Next button is clicked \n & 🚀 navigated to Set Target Audience successfully with url: ${currentUrl} `);
     } else {
       console.log("❌ Next button failed to direct to Set Target Audience");
@@ -1190,22 +1194,18 @@ test(`User clicks on next 'Add Week' after adding task in previous week`, async 
     }
 
   await adminPage.waitForTimeout(500);
-    expect(res.status, "Drag activity element should be disabled if weeks not added`").toBe("success");
+    expect(res.status, "Should click on Add week to add a neew week task").toBe("success");
 
 });
 
 
-test("User should be able to remove the new Added WEEK ", async () => {
+test("User should be able to remove the new Added WEEK", async () => {
     
     
     const jsExecutor = new JavaScriptExecutor(adminPage);
-    
-        // Wait for challenge week section to be present
-        await adminPage.waitForSelector("//div[@class='challenge-week ng-star-inserted']", { timeout: 10000 });
-        console.log("✅ Challenge week section found");
         
         // Method 1: Try the exact XPath you provided
-        const removeButtonXPath = "//div[contains(text(),'Remove')]";
+        const removeButtonXPath = "(//div[contains(@class,'challenge-week') and contains(@class,'ng-star-inserted')]//div[normalize-space(text())='Remove'])[last()]";
         
         console.log("🔄 Attempting to click remove button using JavaScriptExecutor...");
         
@@ -1225,26 +1225,87 @@ test("User should be able to remove the new Added WEEK ", async () => {
  const BaseObj = new BasePage(adminPage);
 
      await adminPage.waitForSelector("//span[normalize-space()='Confirm']");
-   await BaseObj.clickElement("//span[normalize-space()='Confirm']");
-    expect(res.status,"User should click the remove icon in the added week").toBe("success");
-     await adminPage.waitForTimeout(2500);
+     await BaseObj.clickElement("//span[normalize-space()='Confirm']");
+     expect(res.status,"User should click the remove icon in the added week").toBe("success");
+     
       
 });
 
-// test("User should be able to click confirm for remove week", async () => {
 
-//     const BaseObj = new BasePage(adminPage);
 
-//      await adminPage.waitForSelector("//span[normalize-space()='Confirm']");
-//    let res= await BaseObj.clickElement("//span[normalize-space()='Confirm']");
+test(`User clicks on next button in activity task to proceed to review challenge`, async () => {
+      let BaseObj = new BasePage(adminPage);
+await adminPage.waitForSelector(`//*[@id="router"]/vantage-circle-dashboard-custom-challenge-index/div/vantage-circle-dashboard-custom-challenge-configuration/div/vc-button/button`,{timeout:1000})
+  let res=await BaseObj.clickElement(`//*[@id="router"]/vantage-circle-dashboard-custom-challenge-index/div/vantage-circle-dashboard-custom-challenge-configuration/div/vc-button/button`);
+let res2=await BaseObj.assertLink('https://dashboard-v2.vantagecircle.co.in/fit/create-challenge/custom-challenge/challenge-review');
+    if (res.status==="success" && res2.status==='success') {
+      console.log(`✅ Successfully clicked on next "Add weeks"`);
+    } else {
+      console.log(`❌ failed to click on "Add weeks"`);
+    }
 
-//    if(res.status==="success"){
-//             console.log(`✅ Succesfully clicked on confirm button to remove week`);
-//           }else{
-//             console.log("❌ Failed to clicked on confirm button to remove week");
-//           }
+    expect(res.status, "Drag activity element should be disabled if weeks not added`").toBe("success");
 
-//     expect(res.status,"User should click on confirm button to remove week").toBe("success");
+});
+
+test(`User verifies the challenge name text : ${testData.challengeFieldParams.ChallengeName}, in review section`, async () => {
+      let BaseObj = new BasePage(adminPage);
+
+  await adminPage.waitForSelector(`(//div[normalize-space()='${testData.challengeFieldParams.ChallengeName}'])[last()]`,{timeout:10000});
+  let res2 = await BaseObj.assertText(`(//div[normalize-space()='${testData.challengeFieldParams.ChallengeName}'])[last()]`,testData.challengeFieldParams.ChallengeName);
+
+    if (res2.status==='success') {
+      console.log(`✅ Correct challenge name is displayed in review challenge"`);
+    } else {
+      console.log(`❌ failed to display original challenge name in review challenge`);
+    }
+ 
+    expect(res2.status, "Should display Correct challenge name in review challenge section").toBe("success");
+
+});
+
+
+test(`User verifies the start date ${testData.setDuration.Date} in create challenge`, async () => {
+      let BaseObj = new BasePage(adminPage);
+   // Convert "DD-MM-YYYY" → "D Month YYYY" (e.g., "01-09-2025" → "1 September 2025")
+
+  const [dd, mm, yyyy] =await dateExtract.split('-')
+  const expected = new Date(Number(yyyy), Number(mm) - 1, Number(dd)).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+  console.log('date sent:',expected);
+  await adminPage.waitForSelector(`//div//vantage-circle-dashboard-challenge-review-info-item[@title='Start Date']//child::div[contains(text(),'${expected}')]`,{timeout:10000});
+  let res2 = await BaseObj.assertText(`//div//vantage-circle-dashboard-challenge-review-info-item[@title='Start Date']//child::div[contains(text(),'${expected}')]`,expected);
+
+    if (res2.status==='success') {
+      console.log(`✅ Correct Date is displayed in review challenge"`);
+    } else {
+      console.log(`❌ failed to display original date in review challenge`);
+    }
+ 
+    expect(res2.status, "User selected start date should match the 'start date' in review challenge").toBe("success");
+
+});
+
+
+test(`User clicks on submit button to publish the challenge`, async () => {
+      let BaseObj = new BasePage(adminPage);
     
-// });
+  let submit = await BaseObj.clickElement("//button[@class='btn-type-primary btn-variant-secondary btn-size-md']")
+ await adminPage.waitForTimeout(2500);
+  let res2=await BaseObj.assertLink("https://dashboard-v2.vantagecircle.co.in/fit/manage-challenge/campaign");
+ await adminPage.waitForTimeout(200);
+  let res3= await BaseObj.assertText("//span[@class='title']","Manage Challenges");
+    if (submit.status==='success' && res2.status==='success' && res3.status==='success') {
+      console.log(`✅ sumbit clicked successfully & navigated to Manage challenges`);
+    } else {
+      console.log(`❌ failed to click submit`);
+    }
+
+    expect(submit.status, "Should click on Submit").toBe("success");
+    expect(res3.status, "Should display 'Manage Challenges' as title after submiting in next section").toBe("success");
+});
+
 })

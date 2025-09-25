@@ -339,4 +339,23 @@ export class CreateChallengePage extends BasePage {
       return { status: 'failure', message: 'failed to upload file', error: msg };
     }
   }
+
+    async datepicker(locatorField:any,locDateNo :any){
+  try {
+       let dateField= this.page.locator(locatorField);
+       await dateField.click();
+
+       let dateNo=await this.page.waitForSelector(locDateNo,{timeout:5000})
+        await dateNo.click();
+        // await this.page.waitForTimeout(500);  
+        let uf= await this.page.locator(locatorField).inputValue();
+      return { status: 'success', message: 'date selected successfully', Date:uf };
+
+  } catch (error) {
+    console.error("error in selecting date from date picker",error)
+    return { status: 'failure', message: 'failed to select date' };
+  }
+  }
+
+
 }

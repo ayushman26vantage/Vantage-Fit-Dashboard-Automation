@@ -374,7 +374,7 @@ export class BasePage {
 
   async assertLink(expectedLink: string): Promise<Result> {
     try {
-      await this.page.waitForTimeout(1_000);
+      await this.page.waitForTimeout(1000);
       const actualLink: string = this.page.url(); // Playwright's page.url() is synchronous
 
       console.log(`[INFO] Actual URL: ${actualLink}`);
@@ -404,7 +404,7 @@ export class BasePage {
     }
   }
 
-  async clickIfVisible(selector: string, timeout: number = 3_000): Promise<Result> {
+  async clickIfVisible(selector: string, timeout: number = 3000): Promise<Result> {
     try {
       const locator = this.page.locator(selector);
       try {
@@ -478,7 +478,7 @@ async assertText(xpath: string, expected: any) {
         `Expected text "${expectedText}" but got "${actualText}"`
       );
     }
-
+     console.log("✅ Text assertion passed:", `Got '${actualText}' which was expected`);
     return {
       status: "success" as const,
       message: `✅ Text matched: actual "${actualText}" === expected "${expectedText}"`,

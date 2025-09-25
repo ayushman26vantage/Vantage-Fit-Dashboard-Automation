@@ -98,4 +98,5 @@ test.describe('Create Challenge Page Content Verification', () => {
         const description = await createChallengePage.getTemplateDescription('Healthy Habits Hero');
         expect(description?.trim()).toBe('Introducing "Healthy Habits Hero: Your Month of Wellness."');
     });
+    
 }); 
