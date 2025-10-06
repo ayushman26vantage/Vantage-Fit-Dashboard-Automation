@@ -269,7 +269,7 @@ export class BasePage {
     }
   }
 
-  async clickElement(selector: string, timeout: number = 30_000): Promise<Result> {
+  async clickElement(selector: any, timeout: number = 30000): Promise<Result> {
     try {
       await this.waitForElement(selector, timeout);
       await this.page.click(selector);
@@ -308,7 +308,7 @@ export class BasePage {
     }
   }
 
-  async fillInput(selector: string, value: string): Promise<Result> {
+  async fillInput(selector: string, value:any): Promise<Result> {
     try {
       await this.waitForElement(selector);
       await this.page.fill(selector, value);

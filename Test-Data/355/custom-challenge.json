@@ -14,7 +14,7 @@
       "invalidUploadLogo":"Test-Data/677-2560x1600-desktop-hd-red-dead-redemption-background-image.jpg"
     },
     "challengeFieldParams":{
-        "ChallengeName": "Pre Puja Workout 4"
+        "ChallengeName": "Pre Puja Workout Oct 3"
     },
     "setDuration":{
       "Date":"26"
@@ -22,7 +22,8 @@
 
     "TargetAudience":{
       "DefaultDepartment":"Vantage Circle",
-      "TargetedDepartment":"Quality Analyst"
+      "TargetedDepartment":"Quality Analyst",
+      "Add_Participant":"John Test"
 
     },
      "Country":{
