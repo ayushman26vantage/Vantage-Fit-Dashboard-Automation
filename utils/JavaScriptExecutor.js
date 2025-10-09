@@ -221,6 +221,67 @@ class JavaScriptExecutor {
             return false;
         }
     }
+
+
+    async scroll(direction = 'down', locator = null, locatorType = 'xpath') {
+    try {
+        const result = await this.page.evaluate(({ direction, locator, locatorType }) => {
+            // Helper to find element
+            const findElement = () => {
+                if (!locator) return null;
+                return locatorType === 'xpath'
+                    ? document.evaluate(locator, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
+                    : document.querySelector(locator);
+            };
+
+            // If locator is provided, scroll to the element
+            if (locator) {
+                const el = findElement();
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return 'scrolled-to-element';
+                }
+                return 'element-not-found';
+            }
+
+            // Default page scrolling
+            switch ((direction || '').toLowerCase()) {
+                case 'up':
+                    window.scrollBy(0, -window.innerHeight);
+                    return 'scrolled-up';
+                case 'down':
+                    window.scrollBy(0, window.innerHeight);
+                    return 'scrolled-down';
+                case 'top':
+                    window.scrollTo(0, 0);
+                    return 'scrolled-top';
+                case 'bottom':
+                    window.scrollTo(0, Math.max(
+                        document.body.scrollHeight,
+                        document.documentElement.scrollHeight
+                    ));
+                    return 'scrolled-bottom';
+                default:
+                    return 'invalid-direction';
+            }
+        }, { direction, locator, locatorType });
+
+        // Return result summary
+        const success = !['element-not-found', 'invalid-direction'].includes(result);
+        return {
+            status: success ? "success" : "failure",
+            message: result
+        };
+    } catch (error) {
+        console.error(`Error in scroll: ${error.message}`);
+        return { status: "failure", message: error.message };
+    }
+}
+
+    
+
+
+
 }
 
 module.exports = JavaScriptExecutor;

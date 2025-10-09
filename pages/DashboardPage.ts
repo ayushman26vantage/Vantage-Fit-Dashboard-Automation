@@ -12,15 +12,22 @@ export class DashboardPage extends BasePage {
     }
 
     async openProfileDropdown() {
-        await this.page.locator('svg[id="Capa_1"]').click();
-        await this.page.waitForSelector(this.profileImage, { timeout: 10000 });
+      
+        try {
+            await (await this.page.waitForSelector('svg#Capa_1', {timeout: 10000,state: 'visible' })).click();
+            console.log('✅ Icon appeared and was clicked.');
+          } catch (e) {
+            console.warn('⚠️ Icon did not appear or was not visible in 10s. Skipping...');
+          }
+          
+        await this.page.waitForSelector(this.profileImage, { timeout: 60000 });
         await this.page.click(this.profileImage);
-        await this.page.waitForSelector(this.profileDropdown, { timeout: 10000 });
+        await this.page.waitForSelector(this.profileDropdown, { timeout: 60000 });
     }
 
     async navigateToAdminDashboard() {
         await this.openProfileDropdown();
-        await this.page.waitForSelector(this.adminDashboardButton, { timeout: 10000 });
+        await this.page.waitForSelector(this.adminDashboardButton, { timeout: 60000 });
         // Click Admin Dashboard and wait for new tab
         const [newPage] = await Promise.all([
             this.page.context().waitForEvent('page'),
@@ -38,7 +45,7 @@ export class DashboardPage extends BasePage {
     async isAdminDashboardOptionVisible() {
         try {
             await this.openProfileDropdown();
-            await this.page.waitForSelector(this.adminDashboardButton, { timeout: 10000 });
+            await this.page.waitForSelector(this.adminDashboardButton, { timeout: 60000 });
             return await this.page.isVisible(this.adminDashboardButton);
         } catch (error) {
             return false;

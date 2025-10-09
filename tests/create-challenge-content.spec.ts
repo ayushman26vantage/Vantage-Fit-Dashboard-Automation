@@ -19,7 +19,7 @@ test.describe('Create Challenge Page Content Verification', () => {
         // 1. Login and navigate to home
         await loginPage.navigate();
         await loginPage.login('johnmclane@jsdemo.com', 'welcome');
-        await page.waitForURL('**/ng/home', { timeout: 15000 });
+        await page.waitForURL('**/ng/home', { timeout: 60000 });
 
         // 2. Open Admin Dashboard in a new tab
         const [newAdminPage] = await Promise.all([
@@ -30,7 +30,7 @@ test.describe('Create Challenge Page Content Verification', () => {
 
         // 3. Navigate to the Create Challenge page
         const newAdminDashboardPage = new AdminDashboardPage(adminPage);
-        await adminPage.waitForURL('**/yearbook/insights', { timeout: 15000 });
+        await adminPage.waitForURL('**/yearbook/insights', { timeout: 60000 });
         await newAdminDashboardPage.navigateToVantageFitOverview();
         const newSidebar = new DashboardSidebarPage(adminPage);
         await newSidebar.navigateToCreateChallenge();

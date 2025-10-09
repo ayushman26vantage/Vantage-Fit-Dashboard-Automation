@@ -14,10 +14,10 @@
       "invalidUploadLogo":"Test-Data/677-2560x1600-desktop-hd-red-dead-redemption-background-image.jpg"
     },
     "challengeFieldParams":{
-        "ChallengeName": "Pre Puja Workout 4"
+        "ChallengeName": "Pre Puja Workout Oct 3"
     },
     "setDuration":{
-      "Date":"26"
+      "Date":"10"
     },
 
     "TargetAudience":{
@@ -38,9 +38,9 @@
     },
 
   "Activitiy_Tasks":{
-    "activity":["Steps","Water Intake"],
-    "targetMinValue":"4999",
-    "targetMaxValue":"40999",
+    "activity":["Steps","Video Watching","Cycling/Wheelchair","Active Minutes","Squats Workout","Meditation Session","Article Reading"],
+    "targetMinValue":["-4999","0","1","14","9","4","0"],
+    "targetMaxValue":["40999","25","500","401","500","16","25"],
     "NoOFDays":"6",
     "RewardValue":"₹125",
     "CountryPrizeView":"Iceland"

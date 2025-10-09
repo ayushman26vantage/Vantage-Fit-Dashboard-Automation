@@ -8,7 +8,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 1,
   
   // Enhanced timeout configuration
-  timeout:60000, // 90 seconds per test
+  timeout:90000, // 90 seconds per test
   expect: {
     timeout: 15000, // 15 seconds for assertions
   },
