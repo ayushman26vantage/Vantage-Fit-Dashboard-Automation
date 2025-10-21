@@ -460,7 +460,7 @@ export class BasePage {
   }
 
   // BasePage.ts
-async assertText(xpath: string, expected: any) {
+async assertText(xpath: any, expected: any) {
   try {
     const el = this.page.locator(`xpath=${xpath}`);
     await el.waitFor({ state: "visible", timeout: 7000 });
@@ -478,9 +478,9 @@ async assertText(xpath: string, expected: any) {
         `Expected text "${expectedText}" but got "${actualText}"`
       );
     }
-     console.log("✅ Text assertion passed:", `Got '${actualText}' which was expected`);
+     console.log("[INFO] Text assertion passed:", `Got '${actualText}' which was expected`);
     return {
-      status: "success" as const,
+      status: "success" ,
       message: `✅ Text matched: actual "${actualText}" === expected "${expectedText}"`,
       actualText,
       expectedText,
@@ -489,10 +489,10 @@ async assertText(xpath: string, expected: any) {
     const msg =
       error instanceof Error ? error.message : JSON.stringify(error);
 
-    console.error("❌ Text assertion failed:", msg);
+    console.error("[INFO] Text assertion failed:", msg);
 
     return {
-      status: "failure" as const,
+      status: "failure" ,
       message: `❌ Failed: Expected "${expected}"`,
       error: msg,
     };

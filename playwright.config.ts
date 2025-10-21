@@ -5,10 +5,10 @@ export default defineConfig({
   fullyParallel: true,
   workers: process.env.CI ? 1 : undefined, // Allow CLI workers param to override
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 1,
+  retries: process.env.CI ? 2 : undefined,
   
   // Enhanced timeout configuration
-  timeout:90000, // 90 seconds per test
+  timeout:60000, // 60 seconds per test
   expect: {
     timeout: 15000, // 15 seconds for assertions
   },
@@ -19,7 +19,7 @@ export default defineConfig({
     baseURL: 'http://localhost:3000',
     
     // Flexible timeout settings
-    actionTimeout: 30000, // 30 seconds for actions (clicks, fills, etc.)
+    actionTimeout: 15000, // 30 seconds for actions (clicks, fills, etc.)
     navigationTimeout: 30000, // 30 seconds for page navigation
     
     // Enhanced debugging
@@ -116,3 +116,7 @@ export default defineConfig({
     },
   ],
 });
+
+
+
+

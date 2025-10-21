@@ -798,8 +798,6 @@ test("User should be able to add/enter week name in WEEK", async () => {
 
 
 
-
-
 test("User should be able to click cancel confirmation of remove a WEEK ", async () => {
    
     const jsExecutor = new JavaScriptExecutor(adminPage);
@@ -1265,7 +1263,7 @@ test(`User verifies the challenge name text : ${testData.challengeFieldParams.Ch
 });
 
 
-test(`User verifies the start date ${testData.setDuration.Date} in create challenge`, async () => {
+test(`User verifies the start date ${testData.setDuration.Date} in review challenge`, async () => {
       let BaseObj = new BasePage(adminPage);
    // Convert "DD-MM-YYYY" → "D Month YYYY" (e.g., "01-09-2025" → "1 September 2025")
 
@@ -1290,22 +1288,76 @@ test(`User verifies the start date ${testData.setDuration.Date} in create challe
 });
 
 
-test(`User clicks on submit button to publish the challenge`, async () => {
-      let BaseObj = new BasePage(adminPage);
-    
-  let submit = await BaseObj.clickElement("//button[@class='btn-type-primary btn-variant-secondary btn-size-md']")
- await adminPage.waitForTimeout(2500);
-  let res2=await BaseObj.assertLink("https://dashboard-v2.vantagecircle.co.in/fit/manage-challenge/campaign");
- await adminPage.waitForTimeout(200);
-  let res3= await BaseObj.assertText("//span[@class='title']","Manage Challenges");
-    if (submit.status==='success' && res2.status==='success' && res3.status==='success') {
-      console.log(`✅ sumbit clicked successfully & navigated to Manage challenges`);
+test(`User clicks Submit to publish the challenge and navigates to Manage Challenges`, async () => {
+  const BaseObj = new BasePage(adminPage);
+
+  // Step 1: Click the Submit button and wait for network idle
+  await Promise.all([
+    adminPage.waitForLoadState('networkidle'),
+    BaseObj.clickElement("//button[@class='btn-type-primary btn-variant-secondary btn-size-md']")
+  ]);
+  // Step 2: Assert the URL has changed to the expected Manage Challenge URL
+  await expect(adminPage,"Should automatically navigate to manage challenge via submit button").toHaveURL(/\/fit\/manage-challenge\/campaign\/\d+$/);
+
+  // Step 3: Wait for and assert the title text is visible
+  const titleLocator = adminPage.locator("//span[@class='title']");
+  await expect(titleLocator).toHaveText("Manage Challenges");
+
+  console.log(`✅ Submit clicked, navigated, and content verified`);
+});
+
+
+ 
+test(`User manually navigates to manage challenges section to verify recently created challenge `, async () => {
+  // adminPage.waitForRequest(request =>
+  //   request.url().includes("https://dashboard-v2.vantagecircle.co.in/fit/manage-challenge/campaign"));
+
+  let BaseObj = new BasePage(adminPage);
+  
+    let res2 = await BaseObj.clickElement("//a[normalize-space()='Manage Challenges']");
+   
+   await BaseObj.assertLink("https://dashboard-v2.vantagecircle.co.in/fit/manage-challenge")
+   await BaseObj.assertText("//span[@class='title']","Manage Challenges");
+    let res3= await BaseObj.assertText("//span[@class='title']","Manage Challenges");
+    if (res2.status==='success' && res3.status==='success') {
+      console.log(`✅ User navigated to manage challenge via manual navigation`);
     } else {
-      console.log(`❌ failed to click submit`);
+      console.log(`❌ failed to navigate to manage challenge via manual navigation `);
     }
 
-    expect(submit.status, "Should click on Submit").toBe("success");
-    expect(res3.status, "Should display 'Manage Challenges' as title after submiting in next section").toBe("success");
+expect(res3.status, "Should display 'Manage Challenges' on navigating to: Vantage fit DashBoard >> Overview>> Challenges >>Manage Challenges").toBe("success");
+
+
 });
+
+
+test(`User switches to Upcoming challenges in Manage Challenges section to verify challenge: ${testData.challengeFieldParams.ChallengeName} `, async () => {
+
+  let BaseObj = new BasePage(adminPage);
+  await BaseObj.waitForElement("//div[normalize-space()='Upcoming Challenges']");
+    await BaseObj.clickElement("//div[normalize-space()='Upcoming Challenges']");
+   adminPage.waitForLoadState('domcontentloaded');
+    let res2 =  await BaseObj.assertLink("https://dashboard-v2.vantagecircle.co.in/fit/manage-challenge?tab=upcoming")
+   let attribute= await adminPage.locator("//div[normalize-space()='Upcoming Challenges']").getAttribute("aria-selected",{timeout:5000});
+  
+    if(attribute=="true"){
+    console.log(`✅ User switched to Upcoming challenges`);
+   }else{
+    console.log(`❌ failed to switch to Upcoming challenges`);
+   }
+   expect(attribute,"upcoming tab should be selected").toBe("true");
+       let res3= await BaseObj.assertText(`//span[normalize-space()='${testData.challengeFieldParams.ChallengeName}']`,`${testData.challengeFieldParams.ChallengeName}`);
+    if (res2.status==='success' && res3.status==='success') {
+      console.log(`✅ User successfully found recently created challenge : ${testData.challengeFieldParams.ChallengeName}`);
+    } else {
+      console.log(`❌ failed to found the recently created challenge : ${testData.challengeFieldParams.ChallengeName}`);
+    }
+
+expect(res3.status,`Should display the recent created challenge: ${testData.challengeFieldParams.ChallengeName} in Upcoming challenges tab`).toBe("success");
+
+
+});
+
+
 
 })

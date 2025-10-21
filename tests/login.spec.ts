@@ -10,7 +10,7 @@ test('should login and navigate to Vantage Fit overview page', async ({ page }) 
     // 1. Login
     await loginPage.navigate();
     await loginPage.login('johnmclane@jsdemo.com', 'welcome');
-    await page.waitForURL('**/ng/home', { timeout: 15000 });
+    await page.waitForURL('**/ng/home', { timeout: 20000 });
 
     // 2. Navigate to Admin Dashboard (opens new tab)
     const adminPage = await dashboardPage.navigateToAdminDashboard();

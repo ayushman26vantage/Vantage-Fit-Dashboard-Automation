@@ -4,31 +4,22 @@
       "username": "kongkona.das@vantagecircle.com",
       "password": "welcome"
     },
-    "urls": {
-      "home": "**/ng/home",
-      "customChallenge": "https://dashboard-v2.vantagecircle.com/fit/create-challenge/custom-challenge"
-    },
+   
     "challenge": {
+      "challenge_type":"Custom Challenge",
       "logo": "Default Image 02",
       "uploadLogo": "Test-Data/maison_red_roses_offwhite_under_400kb-800x800.jpg",
       "invalidUploadLogo":"Test-Data/677-2560x1600-desktop-hd-red-dead-redemption-background-image.jpg"
     },
     "challengeFieldParams":{
-        "ChallengeName": "Pre Diwali Workout 06"
-    },
-    "setDuration":{
-      "Date":"19"
+       "ChallengeName":"Post Diwali Workout 01",
+        "Ongoing_ChallengeName":"Post Diwali Challenge" 
     },
 
     "TargetAudience":{
       "DefaultDepartment":"Vantage Circle",
       "TargetedDepartment":"Quality Analyst",
       "Add_Participant":"John Test"
-
-    },
-     "Country":{
-      "DefaultCountry":"India",
-      "TargetedCountry":"India"
 
     },
 
@@ -44,6 +35,10 @@
     "NoOFDays":"6",
     "RewardValue":"₹125",
     "CountryPrizeView":"Iceland"
+  },
+  "Leader_Board":{
+    "GoTo_Score_Rank":"01",
+    "GoTo_Step_Rank":"02"
   }
  
 
