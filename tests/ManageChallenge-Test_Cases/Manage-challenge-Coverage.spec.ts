@@ -720,7 +720,6 @@ await adminPage.waitForTimeout(250);
   });
 
 
-//////
 
 //   test(`Verify the no. of users for step LeaderBoard in pagination button for Ongoing challenge`, async () => {
 
@@ -757,8 +756,9 @@ await adminPage.waitForTimeout(250);
   
 // });
 
-  //////
-  if(testData.Leader_Board.GoTo_Score_Rank>='5'){
+ 
+
+  if(Number(testData.Leader_Board.GoTo_Score_Rank)> 5 ){
   test(`User enter a rank in scoreLeaderBoard's Go to input for: ${testData.challengeFieldParams.Ongoing_ChallengeName} in Ongoing challenge`, async () => {
   const BaseObj = new BasePage(adminPage);
 
@@ -789,8 +789,6 @@ await adminPage.waitForTimeout(250);
 });
 
 }
-
-
 
 
 
