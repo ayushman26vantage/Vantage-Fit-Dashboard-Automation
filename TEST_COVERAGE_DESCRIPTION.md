@@ -128,7 +128,29 @@ This document provides a comprehensive overview of all test cases covered in the
 - Challenge validation
 - Save and publish functionality
 
-### 7. Challenge Management Tests (`Manage-challenge-Coverage.spec.ts`)
+### 7. Journey Challenge E2E Tests (`journey-challnege.spec.ts`)
+**Coverage: 30+ test cases**
+
+**Journey Challenge Flow Coverage:**
+- Journey challenge type selection and navigation
+- Journey badge selection ("Journey to 7 wonders", "Backpacking through Europe")
+- Challenge description and logo verification
+- Auto-announce winners toggle functionality
+- Date range configuration (start and end dates)
+- Target audience configuration (departments and countries)
+- Challenge configuration and task setup
+- Review your Challenge and Submit
+- Reward and prize configuration
+- Challenge review and submission
+- Manage challenges verification
+
+**Journey-Specific Features:**
+- Journey badge selection and verification
+- Date range picker for start and end dates
+- Weekly challenge structure
+- Prize view for different countries
+
+### 8. Challenge Management Tests (`Manage-challenge-Coverage.spec.ts`)
 **Coverage: 25+ test cases**
 
 #### Upcoming Challenges Management
@@ -161,6 +183,7 @@ This document provides a comprehensive overview of all test cases covered in the
 
 ### Test Data Files
 - `Test-Data/355/custom-challenge.json` - Basic custom challenge configuration
+- `Test-Data/355/journey-challenge.json` - Journey challenge configuration with date ranges
 - `Test-Data/355/manageChallenge.json` - Challenge management test data
 - `Test-Data/355/CoverageTestdata(Activity Task)/ActivityTaskGrp1.json` - Group 1 activity tasks
 - `Test-Data/355/CoverageTestdata(Activity Task)/ActivityTaskGrp2.json` - Group 2 activity tasks  
@@ -197,13 +220,14 @@ This document provides a comprehensive overview of all test cases covered in the
 
 ## Coverage Statistics
 
-### Total Test Cases: 300+
+### Total Test Cases: 330+
 - **Authentication Tests**: 3
 - **Navigation Tests**: 17
 - **Content Verification Tests**: 8
 - **Target Audience Tests**: 20+
 - **Challenge Configuration Tests**: 120+
-- **E2E Flow Tests**: 100+
+- **Custom Challenge E2E Tests**: 100+
+- **Journey Challenge E2E Tests**: 30+
 - **Management Tests**: 25+
 
 ### Test Categories
@@ -231,14 +255,5 @@ This document provides a comprehensive overview of all test cases covered in the
 - Parallel test execution support
 - Environment-specific configurations
 
-## Future Enhancements
-
-### Recommended Additions
-- Performance testing scenarios
-- Cross-browser compatibility testing
-- Mobile responsiveness testing
-- API testing integration
-- Accessibility testing
-- Security testing scenarios
 
 This comprehensive test coverage ensures the Vantage Fit Dashboard's core functionality is thoroughly validated across all major user workflows and edge cases.

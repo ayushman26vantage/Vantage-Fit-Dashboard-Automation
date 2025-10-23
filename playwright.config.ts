@@ -5,7 +5,7 @@ export default defineConfig({
   fullyParallel: true,
   workers: process.env.CI ? 1 : undefined, // Allow CLI workers param to override
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : undefined,
+  retries: process.env.CI ? 2 : 0,
   
   // Enhanced timeout configuration
   timeout:60000, // 60 seconds per test

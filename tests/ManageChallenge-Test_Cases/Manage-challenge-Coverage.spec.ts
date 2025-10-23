@@ -831,7 +831,7 @@ if(Preattribute==='false'){
   let res=await BaseObj.clickElement('input[checked]');
   let attribute=await adminPage.locator('input[checked]').getAttribute('checked');
   console.log('✅ Toggle was off and is now checked.')
- expect(attribute,"Should edit the challenge name in Edit challenges").toBe('true');
+ expect(attribute,"Should able to togglethe auto announce feature in Edit challenges").toBe('true');
 }
 else{
   console.log('⚠️ Toggle was already checked. Skipping toggle.')

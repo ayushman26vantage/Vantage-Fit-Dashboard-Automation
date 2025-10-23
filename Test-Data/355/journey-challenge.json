@@ -4,16 +4,21 @@
       "username": "kongkona.das@vantagecircle.com",
       "password": "welcome"
     },
-   
+    "urls": {
+      "home": "**/ng/home",
+      "journeyChallenge": "https://dashboard-v2.vantagecircle.com/fit/create-challenge/journey-challenge"
+    },
     "challenge": {
-      "challenge_type":"Custom Challenge",
-      "logo": "Default Image 02",
+      "Badge": "Journey to 7 wonders",
       "uploadLogo": "Test-Data/maison_red_roses_offwhite_under_400kb-800x800.jpg",
       "invalidUploadLogo":"Test-Data/677-2560x1600-desktop-hd-red-dead-redemption-background-image.jpg"
     },
     "challengeFieldParams":{
-       "ChallengeName":"Post Diwali Workout 01",
-        "Ongoing_ChallengeName":"New Challenge" 
+        "ChallengeName": "Pre Diwali Workout 06"
+    },
+    "setDuration":{
+      "Start_Date":"24",
+      "End_Date":"29"
     },
 
     "TargetAudience":{
@@ -22,12 +27,16 @@
       "Add_Participant":"John Test"
 
     },
+     "Country":{
+      "DefaultCountry":"India",
+      "TargetedCountry":"India"
+
+    },
 
   "ThemeName":{
     "uploadLogo": "Test-Data/maison_red_roses_offwhite_under_400kb-800x800.jpg",
     "EnterWeekName":"QA Week-1"
     },
-
 
   "Activitiy_Tasks":{
     "activity":["Steps","Water Intake"],
@@ -36,11 +45,6 @@
     "NoOFDays":"6",
     "RewardValue":"₹125",
     "CountryPrizeView":"Iceland"
-  },
-  
-  "Leader_Board":{
-    "GoTo_Score_Rank":"01",
-    "GoTo_Step_Rank":"02"
   }
  
 
