@@ -15,15 +15,17 @@
     "test:mobile": "playwright test --project='Mobile Chrome' --project='Mobile Safari'",
     "report": "playwright show-report",
     "test:createChallenge": "playwright test tests/create-challenge-navigation.spec.ts --headed --workers=1 --project='Google Chrome'",
-    "test:customChallenge": "playwright test tests/E2E-flow-create_challenges/custom-challenge.spec.ts --headed --workers=1 --project='Chrome-local' ",
-    "test:TargetAudienceCoverage": " playwright test tests/Test-Coverage-create_challenges/custom-challengeTargetAudience.spec.ts --headed --workers=1 --project='Chrome-local' ",
-    "test:ChallengeConfigActivitytaskGrp1": "playwright test tests/CreateChallenge-Test_Cases/TestCoverage-ChallengeConfiguration/ActivityTask_Grp1/custom-challenge-challengeConfig.spec.ts --headed --workers=1 --project='Chrome-local'",
-    "test:ChallengeConfigActivitytaskGrp2": "playwright test tests/CreateChallenge-Test_Cases/TestCoverage-ChallengeConfiguration/Activity_TaskGrp2/custom-challenge-challengeConfig.spec.ts --headed --workers=1 --project='Chrome-local'",
-    "test:ChallengeConfigActivitytaskGrp3": "playwright test tests/CreateChallenge-Test_Cases/TestCoverage-ChallengeConfiguration/Activity_TaskGrp3/custom-challenge-challengeConfig.spec.ts --headed --workers=1 --project='Chrome-local'",
-    "test:Manage_Challenge-Coverage": "playwright test tests/ManageChallenge-Test_Cases/Manage-challenge-Coverage.spec.ts --headed --workers=1 --project='chrome-local'",
-    "test:Jorney_Challenge": "playwright test tests/E2E-flow-create_challenges/journey-challnege.spec.ts --headed --workers=1 --project='Google Chrome' --retries=0"
- 
+    "test:customChallenge": "playwright test tests/E2E-flow-create_challenges/custom-challenge.spec.ts --headed --workers=1 --project='Google Chrome' ",
+    "test:TargetAudienceCoverage": " playwright test tests/Test-Coverage-create_challenges/custom-challengeTargetAudience.spec.ts --headed --workers=1 --project='Google Chrome' ",
+    "test:ChallengeConfigActivitytaskGrp1": "playwright test tests/CreateChallenge-Test_Cases/TestCoverage-ChallengeConfiguration/ActivityTask_Grp1/custom-challenge-challengeConfig.spec.ts --headed --workers=1 --project='Google Chrome'",
+    "test:ChallengeConfigActivitytaskGrp2": "playwright test tests/CreateChallenge-Test_Cases/TestCoverage-ChallengeConfiguration/Activity_TaskGrp2/custom-challenge-challengeConfig.spec.ts --headed --workers=1 --project='Google Chrome'",
+    "test:ChallengeConfigActivitytaskGrp3": "playwright test tests/CreateChallenge-Test_Cases/TestCoverage-ChallengeConfiguration/Activity_TaskGrp3/custom-challenge-challengeConfig.spec.ts --headed --workers=1 --project='Google Chrome'",
+    "test:Manage_Challenge-Coverage": "playwright test tests/ManageChallenge-Test_Cases/Manage-challenge-Coverage.spec.ts --headed --workers=1 --project='Google Chrome'",
+    "test:Journey_Challenge": "playwright test tests/E2E-flow-create_challenges/journey-challnege.spec.ts --headed --workers=1 --project='Google Chrome'",
+    "test:trial": "playwright test tests/E2E-flow-create_challenges/trial.spec.ts --headed --workers=1 --project='Google Chrome' "
+    
   },
+
   "devDependencies": {
     "@playwright/test": "^1.56.0",
     "@types/node": "^20.19.21",

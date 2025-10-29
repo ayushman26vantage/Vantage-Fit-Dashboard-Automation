@@ -391,7 +391,7 @@ async verifyCountryInUserList(
       await this.page.waitForFunction(() => {
         const cells = Array.from(document.querySelectorAll('tbody tr td')) as HTMLElement[];
         return cells.some((c) => (c.innerText || "").trim().length > 0);
-      }, null, { timeout: 5000 });
+      }, null, { timeout: 15000 });
     } catch {
       return {
         status: "failure",

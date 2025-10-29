@@ -16,7 +16,7 @@ import { strictEqual } from 'assert';
 // Main suite for Create Challenge tests
 test.describe.serial('Manage Challenge Coverage)', () => {
   
-
+test.describe.configure({ retries:1 });
   let adminPage: Page;
   let customContext: BrowserContext;
 

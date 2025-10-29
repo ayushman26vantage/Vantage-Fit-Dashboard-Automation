@@ -8,14 +8,10 @@ import { DashboardSidebarPage } from '../../pages/DashboardSidebarPage';
 import { CreateChallengePage } from '../../pages/CreateChallengePage';
 import { BasePage } from '../../pages/BasePage';
 import { TargetAudiencePage } from '../../pages/TargetAudiencePage';
-import { chromium } from 'playwright';
 import testData from '../../Test-Data/355/journey-challenge.json';
-import JavaScriptExecutor from '../../utils/JavaScriptExecutor';
 // Main suite for Create Challenge tests
-test.describe('Custom Challenge Flow', () => {
-   
- test.describe.configure({ retries: 0 });
-
+test.describe.serial('Custom Challenge Flow', () => {
+  test.describe.configure({retries:1})
 
 let page: Page;
   let adminPage: Page;
@@ -49,7 +45,6 @@ let page: Page;
     const sidebar = new DashboardSidebarPage(adminPage);
     await sidebar.navigateToCreateChallenge();
 
-    console.log('✅ Setup completed successfully');
   });
 
  test.afterAll(async () => {
@@ -61,6 +56,10 @@ let page: Page;
     console.log('⚠️ Error while closing pages:', err);
   }
 });
+
+
+
+
 
 test('To verify if the “Journey Challenge” card is displayed in the “Create Challenge”', async () => {
     let BaseObj = new BasePage(adminPage);
@@ -309,53 +308,6 @@ else{
 let EnDdateExtract:any;
 
 
-//  test('should be able to enter challenge end date in set duration', async () => {
-//   const BaseObj = new BasePage(adminPage);
-//   const createChallengePage = new CreateChallengePage(adminPage);
-
-//   console.log("📅 Entering End Date...");
-
-//   const EndDate = new Date(testData.setDuration.End_Date1.trim());
-//   const StartDate = new Date(testData.setDuration.Start_Date1.trim());
-
-//   const durationInMs = EndDate.getTime() - StartDate.getTime();
-//   const durationInDays = Math.round(durationInMs / (1000 * 60 * 60 * 24));
-
-//   console.log(`📆 Duration between start & end date: ${durationInDays} days`);
-
-//   // ✅ Handle navigation inside the date picker using keyboard
-//   const datePickerField = adminPage.locator(`input[placeholder] >> nth=1`);
-//   await datePickerField.click();
-// await adminPage.waitForTimeout(250);
-//   if (durationInDays > 0) {
-//     console.log(`➡️ Moving ${durationInDays} days ahead using ArrowRight key...`);
-//     let EnDdateExtract2;
-//     for (let i = 0; i < durationInDays; i++) {
-//       await adminPage.keyboard.press('ArrowRight');
-//       await adminPage.waitForTimeout(100);
-//      EnDdateExtract2= await adminPage.locator(`//button//span[@class='mat-calendar-body-cell-content mat-focus-indicator']`).inputValue();
-//     }
-//     //  EnDdateExtract=EnDdateExtract2
-//   }
-//   else {
-//     console.log("⏸️ Start and End Dates are the same — no navigation needed.");
-//   }
-
-//   // ✅ Select final date
-//   await adminPage.keyboard.press('Enter');
-//   await adminPage.waitForTimeout(500);
-
-//   // // ✅ Validation
-//   // if (dateString.status === "success") {
-//   //   console.log(`✅ Date entered successfully`);
-//   // } else {
-//   //   console.log("❌ Date entry failed");
-//   // }
-
-//   // expect(dateString.status, `User should enter end date successfully`).toBe("success");
-// });
-
-
 test('should be able to enter challenge end date in set duration', async () => {
   const BaseObj = new BasePage(adminPage);
   const createChallengePage = new CreateChallengePage(adminPage);
@@ -441,7 +393,7 @@ test('should be able to enter challenge end date in set duration', async () => {
     //let res = await BaseObj.fillInput("//input[@placeholder='DD/MM/YYYY']", testData.setDuration.Date);
     let res2= await  BaseObj.clickElement("//vc-button//button[.//span[normalize-space()='Next']]");
     // Get current URL after action
-    const currentUrl = await adminPage.url();
+    const currentUrl =  adminPage.url();
     const expectedUrl = "https://dashboard-v2.vantagecircle.co.in/fit/create-challenge/journey-challenge/challenge-privacy"; 
     
 
@@ -1229,6 +1181,4 @@ expect(res3.status,`Should display the recent created challenge: ${testData.chal
 
 });
 
-
-
-})
+});

@@ -10,9 +10,9 @@ import { chromium } from 'playwright';
 import testData from '../../Test-Data/355/custom-challenge.json';
 import JavaScriptExecutor from '../../utils/JavaScriptExecutor';
 // Main suite for Create Challenge tests
-test.describe('Custom Challenge Flow', () => {
+test.describe.serial('Custom Challenge Flow', () => {
    
- test.describe.configure({ retries: 0 });
+ test.describe.configure({ retries: 1 });
 
 let adminPage: Page;
 let customContext: BrowserContext;

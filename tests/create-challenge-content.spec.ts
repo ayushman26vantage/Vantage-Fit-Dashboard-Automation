@@ -6,7 +6,7 @@ import { DashboardSidebarPage } from '../pages/DashboardSidebarPage';
 import { CreateChallengePage } from '../pages/CreateChallengePage';
 
 // Test suite for verifying the content of the Create Challenge page
-test.describe('Create Challenge Page Content Verification', () => {
+test.describe.serial('Create Challenge Page Content Verification', () => {
     let adminPage: Page; // To store the new tab/page reference
 
     // This hook runs once before all tests in this suite

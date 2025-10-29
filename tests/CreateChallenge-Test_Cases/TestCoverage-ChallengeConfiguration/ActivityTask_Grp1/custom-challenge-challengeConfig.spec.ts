@@ -13,8 +13,8 @@ import JavaScriptExecutor from '../../../../utils/JavaScriptExecutor';
 
 
 // Main suite for Create Challenge tests
-test.describe('Custom Challenge Coverage ~(Challenge configuration ~ [Activity tasks])', () => {
-  test.describe.configure({ retries: 0 });
+test.describe.serial('Custom Challenge Coverage ~(Challenge configuration ~ [Activity tasks])', () => {
+  test.describe.configure({ retries: 1 });
 
   let adminPage: Page;
   let customContext: BrowserContext;

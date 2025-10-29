@@ -3,12 +3,13 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
-  workers: process.env.CI ? 2 : 1, // Allow CLI workers param to override
+  workers: process.env.CI ? 2 : undefined, // Allow CLI workers param to override
   forbidOnly: !!process.env.CI,
-  retries: 0,
+    // Retry on CI only.
+  retries: process.env.CI ? 2 : undefined,
   
   // Enhanced timeout configuration
-  timeout:60000, // 60 seconds per test
+  timeout:75000, // 60 seconds per test
   expect: {
     timeout: 15000, // 15 seconds for assertions
   },

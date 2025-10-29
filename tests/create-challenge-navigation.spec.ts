@@ -7,7 +7,7 @@ import { CreateChallengePage } from '../pages/CreateChallengePage';
 import { BasePage } from '../pages/BasePage';
 
 // Main suite for Create Challenge tests
-test.describe('Create Challenge Flow', () => {
+test.describe.serial('Create Challenge Flow', () => {
     let adminPage: Page; // To store the new tab/page reference
 
     // This hook runs before each test, handling login and navigation
