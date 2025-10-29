@@ -17,9 +17,6 @@ test.describe('Custom Challenge Flow', () => {
  test.describe.configure({ retries: 0 });
 
 
-// const toBool = (v?: string) =>
-//   typeof v === 'string' && ['1', 'true', 'yes', 'on'].includes(v.toLowerCase());
-
 let page: Page;
   let adminPage: Page;
   let context: BrowserContext;
@@ -214,23 +211,6 @@ else{
 
         });
 
-//   test('next button becomes accesible on filling mandatory field and navigates to `Set Duration`', async()=>{
-
-//     let BaseObj = new BasePage(adminPage);
-//     console.log("verifying url for set duration......")
-//     let res=await BaseObj.assertLink("https://dashboard-v2.vantagecircle.co.in/fit/create-challenge/custom-challenge/challenge-duration");
-    
-//     if(res.status==="success"){
-//             console.log("✅ next button directed to set duration successfully");
-//           }else{
-//             console.log("❌ next button failed to direct to set duration");
-//           }
-//         expect(res.status,`next icon should navigate to :${adminPage.url}`).toBe("success");
-       
- //   });
-
-
-
 
 
  test('User denied to click next in set duration if no date entered', async () => {
@@ -257,44 +237,44 @@ else{
   });
 
 
-    let dateExtract:any;
+  let dateExtract:any;
 
 
-//    test('To verify that past dates are disabled in the “Start Date” picker', async () => {
-//     let BaseObj = new BasePage(adminPage);
-//     const createChallengePage = new CreateChallengePage(adminPage);
+   test('To verify that past dates are disabled in the “Start Date” picker', async () => {
+    let BaseObj = new BasePage(adminPage);
+    const createChallengePage = new CreateChallengePage(adminPage);
 
-//     console.log("Entering Date...");
+    console.log("Entering Date...");
 
-//     await adminPage.waitForTimeout(250);
+    await adminPage.waitForTimeout(250);
 
-//     // Get today’s date in DD/MM/YYYY format (India standard)
-//     const todayString = new Date().toLocaleDateString('en-GB'); // e.g. "24/10/2025"
+    // Get today’s date in DD/MM/YYYY format (India standard)
+    const todayString = new Date().toLocaleDateString('en-GB'); // e.g. "24/10/2025"
 
-//     // Extract day part (DD) from it
-//     const todayDay = parseInt(todayString.substring(0, 2)); // Extracts "24" → 24
+    // Extract day part (DD) from it
+    const todayDay = parseInt(todayString.substring(0, 2)); // Extracts "24" → 24
 
-//     // Subtract 1 to get past day
-//     const pastDay = String(todayDay - 1).padStart(2, '0'); // e.g. "23"
+    // Subtract 1 to get past day
+    const pastDay = String(todayDay - 1).padStart(2, '0'); // e.g. "23"
 
-//     console.log("Attempting to select past day:", pastDay);
+    console.log("Attempting to select past day:", pastDay);
 
-//     // Try to select the past date in the picker
-//     let dateString = await createChallengePage.datepicker(
-//         `input[placeholder] >> nth=0`,
-//         `//button//span[normalize-space()='${pastDay}']`
-//     );
+    // Try to select the past date in the picker
+    let dateString = await createChallengePage.datepicker(
+        `input[placeholder] >> nth=0`,
+        `//button//span[normalize-space()='${pastDay}']`
+    );
 
-//     if (dateString.status === "failure") {
-//         console.log(`✅ Past Date (${pastDay}) is correctly disabled`);
-//     } else {
-//         console.log(`❌ Past Date (${pastDay}) was selectable`);
-//     }
+    if (dateString.status === "failure") {
+        console.log(`✅ Past Date (${pastDay}) is correctly disabled`);
+    } else {
+        console.log(`❌ Past Date (${pastDay}) was selectable`);
+    }
 
-//     expect(dateString.status, `User should not be able to select past date`).not.toBe("success");
+    expect(dateString.status, `User should not be able to select past date`).not.toBe("success");
     
-//     await adminPage.locator("div.cdk-overlay-backdrop.mat-overlay-transparent-backdrop.mat-datepicker-0-backdrop.cdk-overlay-backdrop-showing").click();
-// });
+    await adminPage.locator("div.cdk-overlay-backdrop.mat-overlay-transparent-backdrop.mat-datepicker-0-backdrop.cdk-overlay-backdrop-showing").click();
+});
 
 
 
@@ -304,13 +284,18 @@ else{
     let BaseObj = new BasePage(adminPage);
     const createChallengePage = new CreateChallengePage(adminPage);
     console.log("entering Date...");
-    await adminPage.waitForTimeout(500);
-     //let res=await BaseObj.fillInput("//input[@placeholder='DD/MM/YYYY']",testData.setDuration.Date);
-   let dateString= await createChallengePage.datepicker(`input[placeholder] >> nth=0`,`//button//span[normalize-space()='${testData.setDuration.Start_Date}']`);
-   await adminPage.waitForTimeout(500);  
-   console.log("Start Date: ",dateString.Date)
-    dateExtract= dateString.Date
-   if(dateString.status==="success"){
+    await adminPage.waitForTimeout(250);
+
+   
+    let STARTDATE=(testData.setDuration.Start_Date).split(' ')[0]
+     console.log(STARTDATE);
+   
+    let dateString= await createChallengePage.datepicker(`input[placeholder] >> nth=0`,`//button//span[normalize-space()='${STARTDATE}']`);
+      await adminPage.waitForTimeout(500);  
+      console.log("Start Date: ",dateString.Date)
+      dateExtract= dateString.Date
+   
+      if(dateString.status==="success"){
             console.log(`✅ Date is entered successfully`);
           }else{
             console.log("❌ Date entered failed ");
@@ -319,26 +304,10 @@ else{
         expect(dateString.status,`User should enter start date`).toBe("success");
        
     });
+
+
 let EnDdateExtract:any;
-  //  test('should be able to enter challenge end date in set duration', async()=>{
-  //   let BaseObj = new BasePage(adminPage);
-  //   const createChallengePage = new CreateChallengePage(adminPage);
-  //   console.log("entering Date...");
-  //   await adminPage.waitForTimeout(500);
-  //    //let res=await BaseObj.fillInput("//input[@placeholder='DD/MM/YYYY']",testData.setDuration.Date);
-  //  let dateString= await createChallengePage.datepicker(`input[placeholder] >> nth=1`,`//button//span[normalize-space()='${testData.setDuration.End_Date}']`);
-  //  await adminPage.waitForTimeout(500);  
-  //  console.log("End Date: ",dateString.Date)
-  //   EnDdateExtract= dateString.Date
-  //  if(dateString.status==="success"){
-  //           console.log(`✅ Date is entered successfully`);
-  //         }else{
-  //           console.log("❌ Date entered failed ");
-  //         }
-  //          await adminPage.waitForTimeout(500);
-  //       expect(dateString.status,`User should enter end date`).toBe("success");
-       
-  //   });
+
 
 //  test('should be able to enter challenge end date in set duration', async () => {
 //   const BaseObj = new BasePage(adminPage);
@@ -394,8 +363,8 @@ test('should be able to enter challenge end date in set duration', async () => {
   console.log("📅 Entering End Date...");
 
   // Parse dates from test data
-  const EndDate = new Date(testData.setDuration.End_Date1.trim());
-  const StartDate = new Date(testData.setDuration.Start_Date1.trim());
+  const EndDate = new Date(testData.setDuration.End_Date.trim());
+  const StartDate = new Date(testData.setDuration.Start_Date.trim());
 
   // Calculate duration in days
   const durationInMs = EndDate.getTime() - StartDate.getTime();
@@ -486,310 +455,310 @@ test('should be able to enter challenge end date in set duration', async () => {
   await expect(adminPage, "Next button should navigate to Set Target Audience page").toHaveURL(expectedUrl);
 });
 
-// /// Navigation of target audience list
-// test(`User is able to click pagination next to view target audience list`,async()=>{
-//   await adminPage.waitForTimeout(2500);  
-//   let BaseObj = new BasePage(adminPage);
+/// Navigation of target audience list
+test(`User is able to click pagination next to view target audience list`,async()=>{
+  await adminPage.waitForTimeout(2500);  
+  let BaseObj = new BasePage(adminPage);
    
-//     await BaseObj.clickElement(`//span[normalize-space(.)='${testData.TargetAudience.DefaultDepartment}']/ancestor::div[@class='flex flex-1 justify-center']/preceding-sibling::div[contains(@class,'justify-center')]//span[normalize-space(.)='is in']`);
-//     await adminPage.waitForTimeout(500);
+    await BaseObj.clickElement(`//span[normalize-space(.)='${testData.TargetAudience.DefaultDepartment}']/ancestor::div[@class='flex flex-1 justify-center']/preceding-sibling::div[contains(@class,'justify-center')]//span[normalize-space(.)='is in']`);
+    await adminPage.waitForTimeout(500);
    
-//     await BaseObj.clickElement(`//div[@class="flex flex-col"]//span[normalize-space(.)='is in']`);
-//   // Corrected XPath - removed redundant child:: axis
+    await BaseObj.clickElement(`//div[@class="flex flex-col"]//span[normalize-space(.)='is in']`);
+  // Corrected XPath - removed redundant child:: axis
     
-//     await adminPage.waitForTimeout(5000);
-//   const paginationXPath = `//div[@class="pagination-btn-group"]//i[@class="pagination-btn vc-arrow-right"]`;
+    await adminPage.waitForTimeout(5000);
+  const paginationXPath = `//div[@class="pagination-btn-group"]//i[@class="pagination-btn vc-arrow-right"]`;
   
-//   try {
-//     // Try to find and click the pagination button if it's visible
-//     const loc = adminPage.locator(paginationXPath);
-//     await loc.waitFor({ state: 'visible', timeout: 3000 });
-//     await loc.click();
-//     console.log('✅ Pagination next button clicked successfully');
-//   } catch (error) {
-//     console.log('⚠️  Pagination next button not found or not visible for selected data - skipping');
-//     console.log('This is expected behavior if there are no more pages');
-//     // Test passes even if pagination is not available
-//   }
+  try {
+    // Try to find and click the pagination button if it's visible
+    const loc = adminPage.locator(paginationXPath);
+    await loc.waitFor({ state: 'visible', timeout: 3000 });
+    await loc.click();
+    console.log('✅ Pagination next button clicked successfully');
+  } catch (error) {
+    console.log('⚠️  Pagination next button not found or not visible for selected data - skipping');
+    console.log('This is expected behavior if there are no more pages');
+    // Test passes even if pagination is not available
+  }
   
-//   // Wait a moment for potential page load
-//   await adminPage.waitForTimeout(500);
-// })
+  // Wait a moment for potential page load
+  await adminPage.waitForTimeout(500);
+})
 
 
 
-//  test(`should be able to select Departname dropDown at "IS IN" ${testData.TargetAudience.DefaultDepartment}"`, async()=>{
+ test(`should be able to select Departname dropDown at "IS IN" ${testData.TargetAudience.DefaultDepartment}"`, async()=>{
 
-//     let BaseObj = new BasePage(adminPage);
-//     console.log("selecting Department name...");
+    let BaseObj = new BasePage(adminPage);
+    console.log("selecting Department name...");
     
-//     let res= await BaseObj.clickElement(`//span[normalize-space(.)='is in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.TargetAudience.DefaultDepartment}']`);
-//     await adminPage.waitForTimeout(250);
+    let res= await BaseObj.clickElement(`//span[normalize-space(.)='is in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.TargetAudience.DefaultDepartment}']`);
+    await adminPage.waitForTimeout(250);
 
-//     if(res.status==="success"){
-//             console.log(`✅ Department dropdown clicked  successfully`);
-//           }else{
-//             console.log("❌ Department dropdown  failed. to click");
-//           }
-//            await adminPage.waitForTimeout(250);
-//         expect(res.status,`User should click department dropdown when status is "Is in" `).toBe("success");
+    if(res.status==="success"){
+            console.log(`✅ Department dropdown clicked  successfully`);
+          }else{
+            console.log("❌ Department dropdown  failed. to click");
+          }
+           await adminPage.waitForTimeout(250);
+        expect(res.status,`User should click department dropdown when status is "Is in" `).toBe("success");
        
-//     });
+    });
 
   
-//   test(`should be able to switch to "IS NOT IN from "IS IN"`, async()=>{
+  test(`should be able to switch to "IS NOT IN from "IS IN"`, async()=>{
 
-//     let BaseObj = new BasePage(adminPage);
-//     console.log("selecting Department name...");
+    let BaseObj = new BasePage(adminPage);
+    console.log("selecting Department name...");
    
-//     await BaseObj.clickElement(`//span[normalize-space(.)='is in'][1]`);
-//     await adminPage.waitForTimeout(500);
+    await BaseObj.clickElement(`//span[normalize-space(.)='is in'][1]`);
+    await adminPage.waitForTimeout(500);
    
-//     let res= await BaseObj.clickElement(`//span[normalize-space(.)='is not in']`);
-//     //await adminPage.waitForTimeout(5000);
-//     if(res.status==="success"){
-//             console.log(`✅ switch to IS NOT IN successfully`);
-//           }else{
-//             console.log("❌ switch to IS NOT IN failed");
-//           }
-//            await adminPage.waitForTimeout(500);
-//         expect(res.status,`User should switch to "is not in"`).toBe("success");
+    let res= await BaseObj.clickElement(`//span[normalize-space(.)='is not in']`);
+    //await adminPage.waitForTimeout(5000);
+    if(res.status==="success"){
+            console.log(`✅ switch to IS NOT IN successfully`);
+          }else{
+            console.log("❌ switch to IS NOT IN failed");
+          }
+           await adminPage.waitForTimeout(500);
+        expect(res.status,`User should switch to "is not in"`).toBe("success");
        
-//     });
+    });
 
-//  test(`should be able to select departpment dropdown for "IS NOT IN" ${testData.TargetAudience.DefaultDepartment}"`, async()=>{
-// //button[@class="select-btn ng-tns-c3777330320-80"]
-//     let BaseObj = new BasePage(adminPage);
-//     console.log("selecting Department name...");
-//     await BaseObj.clickElement(`//span[normalize-space(.)='${testData.TargetAudience.DefaultDepartment}']//ancestor::div[contains(@class,'justify-center')]//preceding-sibling::div[contains(@class,'justify-center')]//span[normalize-space(.)='is not in']`);
-//     await adminPage.waitForTimeout(250);
+ test(`should be able to select departpment dropdown for "IS NOT IN" ${testData.TargetAudience.DefaultDepartment}"`, async()=>{
+//button[@class="select-btn ng-tns-c3777330320-80"]
+    let BaseObj = new BasePage(adminPage);
+    console.log("selecting Department name...");
+    await BaseObj.clickElement(`//span[normalize-space(.)='${testData.TargetAudience.DefaultDepartment}']//ancestor::div[contains(@class,'justify-center')]//preceding-sibling::div[contains(@class,'justify-center')]//span[normalize-space(.)='is not in']`);
+    await adminPage.waitForTimeout(250);
    
-//     await BaseObj.clickElement(`//span[normalize-space(.)='is not in']`);
-//     await adminPage.waitForTimeout(250);
-//     let res= await BaseObj.clickElement(`//span[normalize-space(.)='is not in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.TargetAudience.DefaultDepartment}']`);
-//     await adminPage.waitForTimeout(250);
-//     if(res.status==="success"){
-//             console.log(`✅ select department dropdown for 'is not in' successfull`);
-//           }else{
-//             console.log("❌ select department dropdown for 'is not in' failed");
-//           }
-//            await adminPage.waitForTimeout(500);
-//         expect(res.status,`User should click department dropdown when status is "Is not in"`).toBe("success");
+    await BaseObj.clickElement(`//span[normalize-space(.)='is not in']`);
+    await adminPage.waitForTimeout(250);
+    let res= await BaseObj.clickElement(`//span[normalize-space(.)='is not in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.TargetAudience.DefaultDepartment}']`);
+    await adminPage.waitForTimeout(250);
+    if(res.status==="success"){
+            console.log(`✅ select department dropdown for 'is not in' successfull`);
+          }else{
+            console.log("❌ select department dropdown for 'is not in' failed");
+          }
+           await adminPage.waitForTimeout(500);
+        expect(res.status,`User should click department dropdown when status is "Is not in"`).toBe("success");
        
-//     });
+    });
 
 
 
 
-//  test(`should be able to select Department name at "IS IN" ${testData.TargetAudience.DefaultDepartment}"`, async()=>{
+ test(`should be able to select Department name at "IS IN" ${testData.TargetAudience.DefaultDepartment}"`, async()=>{
 
-//     let BaseObj = new BasePage(adminPage);
-//     console.log("selecting Department name...");
+    let BaseObj = new BasePage(adminPage);
+    console.log("selecting Department name...");
     
-//     await BaseObj.clickElement(`//span[normalize-space(.)='is not in']`);
-//     await adminPage.waitForTimeout(250);
-//     await BaseObj.clickElement(`//vc-option//span[normalize-space(.)='is in']`);
-//      await adminPage.waitForTimeout(250);
-//      await BaseObj.clickElement(`//span[normalize-space(.)='is in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.TargetAudience.DefaultDepartment}']`);
-//     await adminPage.waitForTimeout(250);
-//     await BaseObj.clickElement("//div//vc-checkbox//input[1]");
-//      await adminPage.waitForTimeout(250);
-//     let res= await BaseObj.clickElement(`//li[@title='${testData.TargetAudience.TargetedDepartment}']`);
+    await BaseObj.clickElement(`//span[normalize-space(.)='is not in']`);
+    await adminPage.waitForTimeout(250);
+    await BaseObj.clickElement(`//vc-option//span[normalize-space(.)='is in']`);
+     await adminPage.waitForTimeout(250);
+     await BaseObj.clickElement(`//span[normalize-space(.)='is in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.TargetAudience.DefaultDepartment}']`);
+    await adminPage.waitForTimeout(250);
+    await BaseObj.clickElement("//div//vc-checkbox//input[1]");
+     await adminPage.waitForTimeout(250);
+    let res= await BaseObj.clickElement(`//li[@title='${testData.TargetAudience.TargetedDepartment}']`);
    
    
-//     if(res.status==="success"){
-//             console.log(`✅ Department name clicked  successfully`);
-//           }else{
-//             console.log("❌ Department name failed. to click");
-//           }
-//            await adminPage.waitForTimeout(500);
-//         expect(res.status,`User should click department name when status is "Is in" `).toBe("success");
+    if(res.status==="success"){
+            console.log(`✅ Department name clicked  successfully`);
+          }else{
+            console.log("❌ Department name failed. to click");
+          }
+           await adminPage.waitForTimeout(500);
+        expect(res.status,`User should click department name when status is "Is in" `).toBe("success");
        
-//     });
+    });
 
 
 
 
-// test(`Selected department - ${testData.TargetAudience.TargetedDepartment} should be visible in user selected list w.r.t relevant users`, async () => {
-//   const targetAudiencePage = new TargetAudiencePage(adminPage);
-//   const result = await targetAudiencePage.verifyDepartmentInUserList(testData.TargetAudience.TargetedDepartment);
+test(`Selected department - ${testData.TargetAudience.TargetedDepartment} should be visible in user selected list w.r.t relevant users`, async () => {
+  const targetAudiencePage = new TargetAudiencePage(adminPage);
+  const result = await targetAudiencePage.verifyDepartmentInUserList(testData.TargetAudience.TargetedDepartment);
   
-//   expect(result.status, result.message).toBe("success");
-// });
+  expect(result.status, result.message).toBe("success");
+});
 
 
 
-//  test(`should be able to select Department name at "IS NOT IN" ${testData.TargetAudience.DefaultDepartment}"`, async()=>{
+ test(`should be able to select Department name at "IS NOT IN" ${testData.TargetAudience.DefaultDepartment}"`, async()=>{
 
-//     let BaseObj = new BasePage(adminPage);
-//     console.log("selecting Department name...");
-//     await adminPage.waitForTimeout(250);
-//     await BaseObj.clickElement(`//button//span[normalize-space(.)='is in']`);
-//      await adminPage.waitForTimeout(250);
-//      await BaseObj.clickElement(`//span[normalize-space(.)='is not in']`);
-//     await adminPage.waitForTimeout(250);
-//      await BaseObj.clickElement(`//span[normalize-space(.)='is not in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.TargetAudience.TargetedDepartment}']`);
-//     await adminPage.waitForTimeout(250);
-//     await BaseObj.clickElement("//div//vc-checkbox//input[1]");
-//      await adminPage.waitForTimeout(250);
-//     let res= await BaseObj.clickElement(`//li[@title='${testData.TargetAudience.TargetedDepartment}']`);
+    let BaseObj = new BasePage(adminPage);
+    console.log("selecting Department name...");
+    await adminPage.waitForTimeout(250);
+    await BaseObj.clickElement(`//button//span[normalize-space(.)='is in']`);
+     await adminPage.waitForTimeout(250);
+     await BaseObj.clickElement(`//span[normalize-space(.)='is not in']`);
+    await adminPage.waitForTimeout(250);
+     await BaseObj.clickElement(`//span[normalize-space(.)='is not in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.TargetAudience.TargetedDepartment}']`);
+    await adminPage.waitForTimeout(250);
+    await BaseObj.clickElement("//div//vc-checkbox//input[1]");
+     await adminPage.waitForTimeout(250);
+    let res= await BaseObj.clickElement(`//li[@title='${testData.TargetAudience.TargetedDepartment}']`);
    
    
-//     if(res.status==="success"){
-//             console.log(`✅ Department name clicked  successfully`);
-//           }else{
-//             console.log("❌ Department name failed. to click");
-//           }
-//            await adminPage.waitForTimeout(250);
-//         expect(res.status,`User should click department name when status is "Is not in" `).toBe("success");
+    if(res.status==="success"){
+            console.log(`✅ Department name clicked  successfully`);
+          }else{
+            console.log("❌ Department name failed. to click");
+          }
+           await adminPage.waitForTimeout(250);
+        expect(res.status,`User should click department name when status is "Is not in" `).toBe("success");
        
-//     });
+    });
 
 
 
-// test(`Selected department - ${testData.TargetAudience.TargetedDepartment} for is not in should be visible in user selected list w.r.t relevant users`, async () => {
-//   const targetAudiencePage = new TargetAudiencePage(adminPage);
-//   const result = await targetAudiencePage.verifyDepartmentInUserList(testData.TargetAudience.TargetedDepartment);
+test(`Selected department - ${testData.TargetAudience.TargetedDepartment} for is not in should be visible in user selected list w.r.t relevant users`, async () => {
+  const targetAudiencePage = new TargetAudiencePage(adminPage);
+  const result = await targetAudiencePage.verifyDepartmentInUserList(testData.TargetAudience.TargetedDepartment);
   
-//   expect(result.status, result.message).toBe("success");
-// });
+  expect(result.status, result.message).toBe("success");
+});
 
-// //Country target audience 
+//Country target audience 
 
 
 
-//  test(`should be able to select Country dropdown at "IS IN" ${testData.Country.DefaultCountry}"`, async()=>{
+ test(`should be able to select Country dropdown at "IS IN" ${testData.Country.DefaultCountry}"`, async()=>{
 
-//     let BaseObj = new BasePage(adminPage);
-//     await BaseObj.clickElement(`//span[normalize-space(.)='is in']`);
-//     let res= await BaseObj.clickElement(`//span[normalize-space(.)='is in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.Country.DefaultCountry}']`);
-//     await adminPage.waitForTimeout(500);
+    let BaseObj = new BasePage(adminPage);
+    await BaseObj.clickElement(`//span[normalize-space(.)='is in']`);
+    let res= await BaseObj.clickElement(`//span[normalize-space(.)='is in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.Country.DefaultCountry}']`);
+    await adminPage.waitForTimeout(500);
 
-//     if(res.status==="success"){
-//             console.log(`✅ Country dropdown clicked  successfully`);
-//           }else{
-//             console.log("❌ Country dropdown  failed to click");
-//           }
-//            await adminPage.waitForTimeout(500);
-//         expect(res.status,`User should click country dropdown when status is "Is in" `).toBe("success");
+    if(res.status==="success"){
+            console.log(`✅ Country dropdown clicked  successfully`);
+          }else{
+            console.log("❌ Country dropdown  failed to click");
+          }
+           await adminPage.waitForTimeout(500);
+        expect(res.status,`User should click country dropdown when status is "Is in" `).toBe("success");
        
-//     });
+    });
 
   
-//   test(`should be able to switch to "IS NOT IN from "IS IN" for country/Region`, async()=>{
+  test(`should be able to switch to "IS NOT IN from "IS IN" for country/Region`, async()=>{
 
-//     let BaseObj = new BasePage(adminPage);
+    let BaseObj = new BasePage(adminPage);
    
-//     await BaseObj.clickElement("//span[normalize-space(.)='is in']");
-//     await adminPage.waitForTimeout(500);
+    await BaseObj.clickElement("//span[normalize-space(.)='is in']");
+    await adminPage.waitForTimeout(500);
    
-//     let res= await BaseObj.clickElement(`//div[@class="flex flex-col"]//span[normalize-space(.)='is not in']`);
-//     //await adminPage.waitForTimeout(5000);
-//     if(res.status==="success"){
-//             console.log(`✅ switch to IS NOT IN successfully`);
-//           }else{
-//             console.log("❌ switch to IS NOT IN failed");
-//           }
-//            await adminPage.waitForTimeout(500);
-//         expect(res.status,`User should switch to "is not in" for Country/Region`).toBe("success");
+    let res= await BaseObj.clickElement(`//div[@class="flex flex-col"]//span[normalize-space(.)='is not in']`);
+    //await adminPage.waitForTimeout(5000);
+    if(res.status==="success"){
+            console.log(`✅ switch to IS NOT IN successfully`);
+          }else{
+            console.log("❌ switch to IS NOT IN failed");
+          }
+           await adminPage.waitForTimeout(500);
+        expect(res.status,`User should switch to "is not in" for Country/Region`).toBe("success");
        
-//     });
+    });
 
-//  test(`should be able to select Country/region dropdown for "IS NOT IN" ${testData.Country.DefaultCountry}"`, async()=>{
-// //button[@class="select-btn ng-tns-c3777330320-80"]
-//     let BaseObj = new BasePage(adminPage);
+ test(`should be able to select Country/region dropdown for "IS NOT IN" ${testData.Country.DefaultCountry}"`, async()=>{
+//button[@class="select-btn ng-tns-c3777330320-80"]
+    let BaseObj = new BasePage(adminPage);
 
-//     await BaseObj.clickElement(`//span[normalize-space(.)='${testData.Country.DefaultCountry}']//ancestor::div[contains(@class,'justify-center')]//preceding-sibling::div[contains(@class,'justify-center')]//span[normalize-space(.)='is not in']`);
+    await BaseObj.clickElement(`//span[normalize-space(.)='${testData.Country.DefaultCountry}']//ancestor::div[contains(@class,'justify-center')]//preceding-sibling::div[contains(@class,'justify-center')]//span[normalize-space(.)='is not in']`);
    
-//     await adminPage.waitForTimeout(250);
-//     let res= await BaseObj.clickElement(`//span[normalize-space(.)='is not in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.Country.DefaultCountry}']`);
-//     await adminPage.waitForTimeout(250);
-//     if(res.status==="success"){
-//             console.log(`✅ select department dropdown for 'is not in' successfull`);
-//           }else{
-//             console.log("❌ select department dropdown for 'is not in' failed");
-//           }
-//            await adminPage.waitForTimeout(500);
-//         expect(res.status,`User should click Country dropdown when status is "Is not in"`).toBe("success");
+    await adminPage.waitForTimeout(250);
+    let res= await BaseObj.clickElement(`//span[normalize-space(.)='is not in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.Country.DefaultCountry}']`);
+    await adminPage.waitForTimeout(250);
+    if(res.status==="success"){
+            console.log(`✅ select department dropdown for 'is not in' successfull`);
+          }else{
+            console.log("❌ select department dropdown for 'is not in' failed");
+          }
+           await adminPage.waitForTimeout(500);
+        expect(res.status,`User should click Country dropdown when status is "Is not in"`).toBe("success");
        
-//     });
+    });
 
 
 
 
-//  test(`should be able to select Country name at "IS IN" ${testData.Country.DefaultCountry}"`, async()=>{
+ test(`should be able to select Country name at "IS IN" ${testData.Country.DefaultCountry}"`, async()=>{
 
-//     let BaseObj = new BasePage(adminPage);
-//     console.log("selecting Country name...");
+    let BaseObj = new BasePage(adminPage);
+    console.log("selecting Country name...");
     
-//      await BaseObj.clickElement(`//span[normalize-space(.)='${testData.Country.DefaultCountry}']//ancestor::div[contains(@class,'justify-center')]//preceding-sibling::div[contains(@class,'justify-center')]//span[normalize-space(.)='is not in']`);
-//     //await BaseObj.clickElement(`//span[normalize-space(.)='is not in']`);
-//     await adminPage.waitForTimeout(250);
-//     await BaseObj.clickElement(`//div[@class="flex flex-col"]//child::span[normalize-space(.)='is in']`);
-//      await adminPage.waitForTimeout(250);
-//      await BaseObj.clickElement(`//span[normalize-space(.)='is in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.Country.DefaultCountry}']`);
-//     await adminPage.waitForTimeout(250);
-//     await BaseObj.clickElement("//div//vc-checkbox//input[1]");
-//      await adminPage.waitForTimeout(250);
-//     let res= await BaseObj.clickElement(`//li[@title='${testData.Country.TargetedCountry}']`);
+     await BaseObj.clickElement(`//span[normalize-space(.)='${testData.Country.DefaultCountry}']//ancestor::div[contains(@class,'justify-center')]//preceding-sibling::div[contains(@class,'justify-center')]//span[normalize-space(.)='is not in']`);
+    //await BaseObj.clickElement(`//span[normalize-space(.)='is not in']`);
+    await adminPage.waitForTimeout(250);
+    await BaseObj.clickElement(`//div[@class="flex flex-col"]//child::span[normalize-space(.)='is in']`);
+     await adminPage.waitForTimeout(250);
+     await BaseObj.clickElement(`//span[normalize-space(.)='is in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.Country.DefaultCountry}']`);
+    await adminPage.waitForTimeout(250);
+    await BaseObj.clickElement("//div//vc-checkbox//input[1]");
+     await adminPage.waitForTimeout(250);
+    let res= await BaseObj.clickElement(`//li[@title='${testData.Country.TargetedCountry}']`);
    
    
-//     if(res.status==="success"){
-//             console.log(`✅ Department name clicked  successfully`);
-//           }else{
-//             console.log("❌ Department name failed. to click");
-//           }
-//            await adminPage.waitForTimeout(500);
-//         expect(res.status,`User should click department name when status is "Is in" `).toBe("success");
+    if(res.status==="success"){
+            console.log(`✅ Department name clicked  successfully`);
+          }else{
+            console.log("❌ Department name failed. to click");
+          }
+           await adminPage.waitForTimeout(500);
+        expect(res.status,`User should click department name when status is "Is in" `).toBe("success");
        
-//     });
+    });
 
 
 
 
-// test(`Selected country - ${testData.Country.TargetedCountry} should be visible in user selected list w.r.t relevant users`, async () => {
-//   const targetAudiencePage = new TargetAudiencePage(adminPage);
-//   const result = await targetAudiencePage.verifyCountryInUserList(testData.Country.TargetedCountry);
+test(`Selected country - ${testData.Country.TargetedCountry} should be visible in user selected list w.r.t relevant users`, async () => {
+  const targetAudiencePage = new TargetAudiencePage(adminPage);
+  const result = await targetAudiencePage.verifyCountryInUserList(testData.Country.TargetedCountry);
    
-//   expect(result.status, result.message).toBe("success");
-// });
+  expect(result.status, result.message).toBe("success");
+});
 
 
 
-//  test(`should be able to select Country name at "IS NOT IN" ${testData.Country.TargetedCountry}"`, async()=>{
+ test(`should be able to select Country name at "IS NOT IN" ${testData.Country.TargetedCountry}"`, async()=>{
 
-//     let BaseObj = new BasePage(adminPage);
-//     console.log("selecting Country name...");
-//     await adminPage.waitForTimeout(250);
-//     await BaseObj.clickElement(`//span[normalize-space(.)='${testData.Country.TargetedCountry}']//ancestor::div[contains(@class,'justify-center')]//preceding-sibling::div[contains(@class,'justify-center')]//span[normalize-space(.)='is in']`);
-//      await adminPage.waitForTimeout(250);
-//      await BaseObj.clickElement(`//div[@class="flex flex-col"]//span[normalize-space(.)='is not in']`);
-//     await adminPage.waitForTimeout(250);
-//      await BaseObj.clickElement(`//span[normalize-space(.)='is not in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.Country.TargetedCountry}']`);
-//     await adminPage.waitForTimeout(250);
-//     await BaseObj.clickElement("//div//vc-checkbox//input[1]");
-//      await adminPage.waitForTimeout(250);
-//     let res= await BaseObj.clickElement(`//li[@title='${testData.Country.TargetedCountry}']`);
+    let BaseObj = new BasePage(adminPage);
+    console.log("selecting Country name...");
+    await adminPage.waitForTimeout(250);
+    await BaseObj.clickElement(`//span[normalize-space(.)='${testData.Country.TargetedCountry}']//ancestor::div[contains(@class,'justify-center')]//preceding-sibling::div[contains(@class,'justify-center')]//span[normalize-space(.)='is in']`);
+     await adminPage.waitForTimeout(250);
+     await BaseObj.clickElement(`//div[@class="flex flex-col"]//span[normalize-space(.)='is not in']`);
+    await adminPage.waitForTimeout(250);
+     await BaseObj.clickElement(`//span[normalize-space(.)='is not in']/ancestor::div[contains(@class,'justify-center')]//following-sibling::div[@class='flex flex-1 justify-center']//span[normalize-space(.)='${testData.Country.TargetedCountry}']`);
+    await adminPage.waitForTimeout(250);
+    await BaseObj.clickElement("//div//vc-checkbox//input[1]");
+     await adminPage.waitForTimeout(250);
+    let res= await BaseObj.clickElement(`//li[@title='${testData.Country.TargetedCountry}']`);
    
    
-//     if(res.status==="success"){
-//             console.log(`✅ Department name clicked  successfully`);
-//           }else{
-//             console.log("❌ Department name failed. to click");
-//           }
-//            await adminPage.waitForTimeout(250);
-//         expect(res.status,`User should click department name when status is "Is not in" `).toBe("success");
+    if(res.status==="success"){
+            console.log(`✅ Department name clicked  successfully`);
+          }else{
+            console.log("❌ Department name failed. to click");
+          }
+           await adminPage.waitForTimeout(250);
+        expect(res.status,`User should click department name when status is "Is not in" `).toBe("success");
        
-//     });
+    });
 
 
 
-// test(`Selected country - ${testData.Country.TargetedCountry} for 'is not in' should be visible in user selected list w.r.t relevant users`, async () => {
-//   const targetAudiencePage = new TargetAudiencePage(adminPage);
-//   const result = await targetAudiencePage.verifyCountryInUserList(testData.Country.TargetedCountry);
+test(`Selected country - ${testData.Country.TargetedCountry} for 'is not in' should be visible in user selected list w.r.t relevant users`, async () => {
+  const targetAudiencePage = new TargetAudiencePage(adminPage);
+  const result = await targetAudiencePage.verifyCountryInUserList(testData.Country.TargetedCountry);
   
-//   expect(result.status, result.message).toBe("success");
-// });
+  expect(result.status, result.message).toBe("success");
+});
 
 
   test('should be able to click next to naviagte to Challenge cofiguration section >> "Setup Task For The Challenge"', async () => {
@@ -1116,7 +1085,7 @@ test(`User verifies the start date ${testData.setDuration.Start_Date} in review 
 
 });
 
-test(`User verifies the end date ${testData.setDuration.End_Date1} in review challenge`, async () => {
+test(`User verifies the end date ${testData.setDuration.End_Date} in review challenge`, async () => {
       let BaseObj = new BasePage(adminPage);
    // Convert "DD-MM-YYYY" → "D Month YYYY" (e.g., "01-09-2025" → "1 September 2025")
 
@@ -1236,7 +1205,7 @@ expect(res3.status, "Should display 'Manage Challenges' on navigating to: Vantag
 });
 
 
-test(`User switches to Upcoming challenges in Manage Challenges section to verify challenge: ${testData.challengeFieldParams.ChallengeName} `, async () => {
+test(`User switches to Upcoming challenges in Manage Challenges section to verify challenge: ${testData.challenge.Badge} `, async () => {
 
   let BaseObj = new BasePage(adminPage);
   await BaseObj.waitForElement("//div[normalize-space()='Upcoming Challenges']");
@@ -1251,11 +1220,11 @@ test(`User switches to Upcoming challenges in Manage Challenges section to verif
     console.log(`❌ failed to switch to Upcoming challenges`);
    }
    expect(attribute,"upcoming tab should be selected").toBe("true");
-       let res3= await BaseObj.assertText(`//span[normalize-space()='${testData.challengeFieldParams.ChallengeName}']`,`${testData.challengeFieldParams.ChallengeName}`);
+       let res3= await BaseObj.assertText((`//span[normalize-space()='${testData.challenge.Badge}']`)[1],`${testData.challenge.Badge}`);
     if (res2.status==='success' && res3.status==='success') {
-      console.log(`✅ User successfully found recently created challenge : ${testData.challengeFieldParams.ChallengeName}`);
+      console.log(`✅ User successfully found recently created challenge : ${testData.challenge.Badge}`);
     } else {
-      console.log(`❌ failed to found the recently created challenge : ${testData.challengeFieldParams.ChallengeName}`);
+      console.log(`❌ failed to found the recently created challenge : ${testData.challenge.Badge}`);
     }
 
 expect(res3.status,`Should display the recent created challenge: ${testData.challengeFieldParams.ChallengeName} in Upcoming challenges tab`).toBe("success");

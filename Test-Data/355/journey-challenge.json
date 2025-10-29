@@ -17,10 +17,9 @@
         "ChallengeName": ""
     },
     "setDuration":{
-      "Start_Date":"28",
-      "End_Date":"2",
-      "Start_Date1":"28 Oct 2025",
-      "End_Date1":"12 Nov 2025"
+      
+      "Start_Date":"29 Oct 2025",
+      "End_Date":"12 Nov 2025"
     },
 
     "TargetAudience":{
