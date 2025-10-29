@@ -420,33 +420,70 @@ export class BasePage {
     }
   }
 
-  // async assertText(locator: string, expectedText:any): Promise<Result> {
-  //   try {
-  //     const el = this.page.locator(locator);
-  //     await el.waitFor({ state: 'attached', timeout: 5_000 });
-  //     const actualText = (await el.innerText()).trim();
+async assertMonetaryValue(xpath: any, expected: any) {
+  try {
+    const el = this.page.locator(`xpath=${xpath}`);
+    await el.waitFor({ state: "visible", timeout: 7000 });
 
-  //     assert.strictEqual(
-  //       actualText,
-  //       expectedText,
-  //       `Expected text "${expectedText}" but got "${actualText}"`
-  //     );
+    const raw = (await el.textContent()) ?? "";
 
-  //     return {
-  //       status: 'success',
-  //       message: `✅ Text matched: actual "${actualText}" === expected "${expectedText}"`,
-  //       actualText,
-  //     };
-  //   } catch (error: unknown) {
-  //     const msg = this.errMsg(error);
-  //     console.error('❌ Text assertion failed:', msg);
-  //     return {
-  //       status: 'failure',
-  //       message: `Failed: Expected "${expectedText}"`,
-  //       error: msg,
-  //     };
-  //   }
-  // }
+    // Helper to normalize text and remove currency symbols if needed
+    const normalize = (s: any) => {
+      if (s === null || s === undefined) return "";
+      if (typeof s !== "string") s = String(s);
+      return s
+        .replace(/[\u20B9$€£¥,]/g, "") // Remove ₹ $ € £ ¥ and commas
+        .replace(/\s+/g, " ")           // Collapse multiple spaces
+        .trim();
+    };
+
+    const actualText = normalize(raw);
+    const expectedText = normalize(expected);
+
+    // Compare as numbers if both are numeric
+    const bothNumeric =
+      !isNaN(Number(actualText)) && !isNaN(Number(expectedText));
+
+    if (bothNumeric) {
+      const actualNum = Number(actualText);
+      const expectedNum = Number(expectedText);
+      if (actualNum !== expectedNum) {
+        throw new Error(
+          `Expected numeric value ${expectedNum} but got ${actualNum}`
+        );
+      }
+      console.log(
+        `[INFO] Numeric assertion passed: ${actualNum} === ${expectedNum}`
+      );
+    } else {
+      if (actualText !== expectedText) {
+        throw new Error(
+          `Expected text "${expectedText}" but got "${actualText}"`
+        );
+      }
+      console.log(
+        `[INFO] Text assertion passed: Got '${actualText}' which was expected`
+      );
+    }
+
+    return {
+      status: "success",
+      message: `✅ Matched: actual "${actualText}" === expected "${expectedText}"`,
+      actualText,
+      expectedText,
+    };
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : JSON.stringify(error);
+    console.error("[INFO] Text assertion failed:", msg);
+
+    return {
+      status: "failure",
+      message: `❌ Failed: Expected "${expected}"`,
+      error: msg,
+    };
+  }
+}
+
 
   async clickElementv2(selector: string, timeout: number = 30_000): Promise<Result> {
     try {

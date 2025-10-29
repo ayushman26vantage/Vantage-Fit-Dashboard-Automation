@@ -7,9 +7,9 @@ export class DashboardPage extends BasePage {
     private readonly adminDashboardButton = 'button[aria-label="HR Admin Dashboard"], button:has-text("Admin Dashboard")';
     private readonly profileDropdown = '.mat-menu-panel';
 
-    constructor(page: Page) {
-        super(page);
-    }
+    // constructor(page: Page) {
+    //     super(page);
+    // }
 
     async openProfileDropdown() {
       

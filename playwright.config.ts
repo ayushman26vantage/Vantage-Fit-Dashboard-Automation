@@ -3,9 +3,9 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
-  workers: process.env.CI ? 1 : undefined, // Allow CLI workers param to override
+  workers: process.env.CI ? 2 : 1, // Allow CLI workers param to override
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
+  retries: 0,
   
   // Enhanced timeout configuration
   timeout:60000, // 60 seconds per test
@@ -13,7 +13,7 @@ export default defineConfig({
     timeout: 15000, // 15 seconds for assertions
   },
   
-  reporter: 'html',
+  reporter: 'null',
   
   use: {
     baseURL: 'http://localhost:3000',
@@ -59,12 +59,19 @@ export default defineConfig({
     {
       name: 'Google Chrome',
       use: { 
-        ...devices['Desktop Chrome'], 
+        browserName: 'chromium',
         channel: 'chrome',
-        launchOptions: {
-          args: ['--disable-dev-shm-usage', '--no-sandbox'],
+        storageState: undefined, // Incognito mode
+        viewport: null, // Use full native screen size
+        userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        isMobile: false,
+        hasTouch: false,
+         launchOptions: {
+          args: ['--disable-dev-shm-usage', '--start-maximized'],
         },
       },
+      
+      testIgnore: ['**/mobile/**', '**/api-only/**']
     },
     {
       name: 'firefox',
@@ -95,28 +102,26 @@ export default defineConfig({
 
     // ---------- CI/headless Google Chrome ----------
     // Fixed viewport; you may set deviceScaleFactor if desired.
-    {
-      name: 'chrome-ci',
-      use: {
-        channel: 'chrome',
-        headless: true,
-        viewport: { width: 1920, height: 1080 },
-        // deviceScaleFactor: 1, // optional & safe in CI
-        launchOptions: {
-          args: [
-            '--disable-dev-shm-usage',
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--disable-gpu',
-            '--disable-web-security',
-            '--window-size=1920,1080',
-          ],
-        },
-      },
-    },
+    // {
+    //   name: 'chrome-ci',
+    //   use: {
+    //     channel: 'chrome',
+    //     headless: true,
+    //     viewport: { width: 1920, height: 1080 },
+    //     // deviceScaleFactor: 1, // optional & safe in CI
+    //     launchOptions: {
+    //       args: [
+    //         '--disable-dev-shm-usage',
+    //         '--no-sandbox',
+    //         '--disable-setuid-sandbox',
+    //         '--disable-gpu',
+    //         '--disable-web-security',
+    //         '--window-size=1920,1080',
+    //       ],
+    //     },
+    //   },
+    // },
   ],
 });
-
-
 
 

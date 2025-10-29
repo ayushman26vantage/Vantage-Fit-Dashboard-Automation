@@ -14,11 +14,13 @@
       "invalidUploadLogo":"Test-Data/677-2560x1600-desktop-hd-red-dead-redemption-background-image.jpg"
     },
     "challengeFieldParams":{
-        "ChallengeName": "Pre Diwali Workout 06"
+        "ChallengeName": ""
     },
     "setDuration":{
-      "Start_Date":"24",
-      "End_Date":"29"
+      "Start_Date":"28",
+      "End_Date":"2",
+      "Start_Date1":"28 Oct 2025",
+      "End_Date1":"12 Nov 2025"
     },
 
     "TargetAudience":{
@@ -38,12 +40,10 @@
     "EnterWeekName":"QA Week-1"
     },
 
-  "Activitiy_Tasks":{
-    "activity":["Steps","Water Intake"],
-    "targetMinValue":"4999",
-    "targetMaxValue":"40999",
+  "Challenge_Config":{
+    "TargetStep":"5000",
     "NoOFDays":"6",
-    "RewardValue":"₹125",
+    "RewardValue":"₹ 125",
     "CountryPrizeView":"Iceland"
   }
  

@@ -1,16 +1,18 @@
-# Dependencies
+# Node modules
 node_modules/
 
 # Playwright
 test-results/
 playwright-report/
 playwright/.cache/
+playwright/.auth/
+playwright.yml
 
-# IDE
+# IDEs
 .vscode/
 .idea/
 
-# OS
+# OS files
 .DS_Store
 Thumbs.db
 
@@ -19,9 +21,3 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# Playwright
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-/playwright/.auth/
