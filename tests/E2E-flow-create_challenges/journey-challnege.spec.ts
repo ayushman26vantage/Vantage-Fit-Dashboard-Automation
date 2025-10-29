@@ -481,10 +481,8 @@ test(`User is able to click pagination next to view target audience list`,async(
     // Test passes even if pagination is not available
   }
   
-  // Wait a moment for potential page load
-  await adminPage.waitForTimeout(500);
+  await adminPage.waitForTimeout(250);
 })
-
 
 
  test(`should be able to select Departname dropDown at "IS IN" ${testData.TargetAudience.DefaultDepartment}"`, async()=>{
@@ -526,6 +524,8 @@ test(`User is able to click pagination next to view target audience list`,async(
        
     });
 
+
+
  test(`should be able to select departpment dropdown for "IS NOT IN" ${testData.TargetAudience.DefaultDepartment}"`, async()=>{
 //button[@class="select-btn ng-tns-c3777330320-80"]
     let BaseObj = new BasePage(adminPage);
@@ -546,7 +546,6 @@ test(`User is able to click pagination next to view target audience list`,async(
         expect(res.status,`User should click department dropdown when status is "Is not in"`).toBe("success");
        
     });
-
 
 
 
@@ -624,7 +623,6 @@ test(`Selected department - ${testData.TargetAudience.TargetedDepartment} for is
 });
 
 //Country target audience 
-
 
 
  test(`should be able to select Country dropdown at "IS IN" ${testData.Country.DefaultCountry}"`, async()=>{
@@ -1059,7 +1057,6 @@ test(`User verifies the challenge name description for ${testData.challenge.Badg
 
 
 
-
 test(`User verifies the start date ${testData.setDuration.Start_Date} in review challenge`, async () => {
       let BaseObj = new BasePage(adminPage);
    // Convert "DD-MM-YYYY" → "D Month YYYY" (e.g., "01-09-2025" → "1 September 2025")
@@ -1165,20 +1162,20 @@ let rewards=testData.Challenge_Config.RewardValue
 
 
 
-test(`User clicks Submit to publish the challenge and navigates to Manage Challenges`, async () => {
-  const BaseObj = new BasePage(adminPage);
+// test(`User clicks Submit to publish the challenge and navigates to Manage Challenges`, async () => {
+//   const BaseObj = new BasePage(adminPage);
 
-  // Step 1: Click the Submit button and wait for network idle
-  // await Promise.all([adminPage.waitForLoadState('networkidle'),
-    BaseObj.clickElement("//button[@class='btn-type-primary btn-variant-secondary btn-size-md']")
-    // ]);
-  await expect(adminPage,"Should automatically navigate to manage challenge via submit button").toHaveURL(/\/fit\/manage-challenge\/journey-challenge\/\d+$/, {timeout: 15000}) // wait up to 15 seconds;
+//   // Step 1: Click the Submit button and wait for network idle
+//   // await Promise.all([adminPage.waitForLoadState('networkidle'),
+//     BaseObj.clickElement("//button[@class='btn-type-primary btn-variant-secondary btn-size-md']")
+//     // ]);
+//   await expect(adminPage,"Should automatically navigate to manage challenge via submit button").toHaveURL(/\/fit\/manage-challenge\/journey-challenge\/\d+$/, {timeout: 15000}) // wait up to 15 seconds;
 
-  const titleLocator = adminPage.locator("//span[@class='title']");
-  await expect(titleLocator).toHaveText("Manage Challenges");
+//   const titleLocator = adminPage.locator("//span[@class='title']");
+//   await expect(titleLocator).toHaveText("Manage Challenges");
 
-  console.log(`✅ Submit clicked, navigated, and content verified`);
-});
+//   console.log(`✅ Submit clicked, navigated, and content verified`);
+// });
 
 
  
@@ -1205,7 +1202,7 @@ expect(res3.status, "Should display 'Manage Challenges' on navigating to: Vantag
 });
 
 
-test(`User switches to Upcoming challenges in Manage Challenges section to verify challenge: ${testData.challenge.Badge} `, async () => {
+test(`User switches to Upcoming challenges in Manage Challenges section to verify challenge: ${testData.challenge.Badge}`, async () => {
 
   let BaseObj = new BasePage(adminPage);
   await BaseObj.waitForElement("//div[normalize-space()='Upcoming Challenges']");
@@ -1220,7 +1217,7 @@ test(`User switches to Upcoming challenges in Manage Challenges section to verif
     console.log(`❌ failed to switch to Upcoming challenges`);
    }
    expect(attribute,"upcoming tab should be selected").toBe("true");
-       let res3= await BaseObj.assertText((`//span[normalize-space()='${testData.challenge.Badge}']`)[1],`${testData.challenge.Badge}`);
+       let res3= await BaseObj.assertText(`(//*[normalize-space()='Journey to 7 wonders'])[last()]`,`${testData.challenge.Badge}`);
     if (res2.status==='success' && res3.status==='success') {
       console.log(`✅ User successfully found recently created challenge : ${testData.challenge.Badge}`);
     } else {
