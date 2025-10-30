@@ -10,7 +10,7 @@ import { BasePage } from '../../pages/BasePage';
 import { TargetAudiencePage } from '../../pages/TargetAudiencePage';
 import testData from '../../Test-Data/355/journey-challenge.json';
 // Main suite for Create Challenge tests
-test.describe.serial('Custom Challenge Flow', () => {
+test.describe.serial('Create Journey Challenge Flow Automation', () => {
   test.describe.configure({retries:1})
 
 let page: Page;
@@ -1114,20 +1114,20 @@ let rewards=testData.Challenge_Config.RewardValue
 
 
 
-// test(`User clicks Submit to publish the challenge and navigates to Manage Challenges`, async () => {
-//   const BaseObj = new BasePage(adminPage);
+test(`User clicks Submit to publish the challenge and navigates to Manage Challenges`, async () => {
+  const BaseObj = new BasePage(adminPage);
 
-//   // Step 1: Click the Submit button and wait for network idle
-//   // await Promise.all([adminPage.waitForLoadState('networkidle'),
-//     BaseObj.clickElement("//button[@class='btn-type-primary btn-variant-secondary btn-size-md']")
-//     // ]);
-//   await expect(adminPage,"Should automatically navigate to manage challenge via submit button").toHaveURL(/\/fit\/manage-challenge\/journey-challenge\/\d+$/, {timeout: 15000}) // wait up to 15 seconds;
+  // Step 1: Click the Submit button and wait for network idle
+  // await Promise.all([adminPage.waitForLoadState('networkidle'),
+    BaseObj.clickElement("//button[@class='btn-type-primary btn-variant-secondary btn-size-md']")
+    // ]);
+  await expect(adminPage,"Should automatically navigate to manage challenge via submit button").toHaveURL(/\/fit\/manage-challenge\/journey-challenge\/\d+$/, {timeout: 15000}) // wait up to 15 seconds;
 
-//   const titleLocator = adminPage.locator("//span[@class='title']");
-//   await expect(titleLocator).toHaveText("Manage Challenges");
+  const titleLocator = adminPage.locator("//span[@class='title']");
+  await expect(titleLocator).toHaveText("Manage Challenges");
 
-//   console.log(`✅ Submit clicked, navigated, and content verified`);
-// });
+  console.log(`✅ Submit clicked, navigated, and content verified`);
+});
 
 
  

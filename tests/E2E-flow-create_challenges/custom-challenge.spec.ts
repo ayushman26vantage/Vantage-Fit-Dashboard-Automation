@@ -9,6 +9,7 @@ import { TargetAudiencePage } from '../../pages/TargetAudiencePage';
 import { chromium } from 'playwright';
 import testData from '../../Test-Data/355/custom-challenge.json';
 import JavaScriptExecutor from '../../utils/JavaScriptExecutor';
+import * as allure from "allure-js-commons";
 // Main suite for Create Challenge tests
 test.describe.serial('Custom Challenge Flow', () => {
    

@@ -21,3 +21,16 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# Allure Reports
+allure-report/
+allure-results/
+mochawesome-report/
+resultsJSON/
+
+# Playwright test results and reports
+test-results/
+playwright-report/
+playwright/.cache/
+screenshots/

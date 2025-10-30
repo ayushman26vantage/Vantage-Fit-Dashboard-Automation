@@ -18,7 +18,7 @@ test.describe.serial('Create Challenge Page Content Verification', () => {
         
         // 1. Login and navigate to home
         await loginPage.navigate();
-        await loginPage.login('johnmclane@jsdemo.com', 'welcome');
+        await loginPage.login('kongkona.das@vantagecircle.com', 'welcome');
         await page.waitForURL('**/ng/home', { timeout: 60000 });
 
         // 2. Open Admin Dashboard in a new tab

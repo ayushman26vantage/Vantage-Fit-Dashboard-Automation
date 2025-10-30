@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Automation framework for Vantage Fit Dashboard using Playwright",
   "scripts": {
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report",
+    "Launch_Reporter": "npm run allure:generate  && npm run allure:open",
     "test": "playwright test",
     "test:headed": "HEADED=true playwright test",
     "test:debug": "playwright test --debug",
@@ -14,22 +17,22 @@
     "test:edge": "playwright test --project='Microsoft Edge'",
     "test:mobile": "playwright test --project='Mobile Chrome' --project='Mobile Safari'",
     "report": "playwright show-report",
-    "test:createChallenge": "playwright test tests/create-challenge-navigation.spec.ts --headed --workers=1 --project='Google Chrome'",
-    "test:customChallenge": "playwright test tests/E2E-flow-create_challenges/custom-challenge.spec.ts --headed --workers=1 --project='Google Chrome' ",
-    "test:TargetAudienceCoverage": " playwright test tests/Test-Coverage-create_challenges/custom-challengeTargetAudience.spec.ts --headed --workers=1 --project='Google Chrome' ",
-    "test:ChallengeConfigActivitytaskGrp1": "playwright test tests/CreateChallenge-Test_Cases/TestCoverage-ChallengeConfiguration/ActivityTask_Grp1/custom-challenge-challengeConfig.spec.ts --headed --workers=1 --project='Google Chrome'",
-    "test:ChallengeConfigActivitytaskGrp2": "playwright test tests/CreateChallenge-Test_Cases/TestCoverage-ChallengeConfiguration/Activity_TaskGrp2/custom-challenge-challengeConfig.spec.ts --headed --workers=1 --project='Google Chrome'",
-    "test:ChallengeConfigActivitytaskGrp3": "playwright test tests/CreateChallenge-Test_Cases/TestCoverage-ChallengeConfiguration/Activity_TaskGrp3/custom-challenge-challengeConfig.spec.ts --headed --workers=1 --project='Google Chrome'",
-    "test:Manage_Challenge-Coverage": "playwright test tests/ManageChallenge-Test_Cases/Manage-challenge-Coverage.spec.ts --headed --workers=1 --project='Google Chrome'",
-    "test:Journey_Challenge": "playwright test tests/E2E-flow-create_challenges/journey-challnege.spec.ts --headed --workers=1 --project='Google Chrome'",
-    "test:trial": "playwright test tests/E2E-flow-create_challenges/trial.spec.ts --headed --workers=1 --project='Google Chrome' "
+    "test:createChallenge": "playwright test tests/create-challenge-navigation.spec.ts --headed --workers=1 --project='Google Chrome' && npm run Launch_Reporter",
+    "test:customChallenge": "playwright test tests/E2E-flow-create_challenges/custom-challenge.spec.ts --headed --workers=1 --project='Google Chrome' && npm run Launch_Reporter",
+    "test:TargetAudienceCoverage": " playwright test tests/Test-Coverage-create_challenges/custom-challengeTargetAudience.spec.ts --headed --workers=1 --project='Google Chrome' && npm run Launch_Reporter ",
+    "test:ChallengeConfigActivitytaskGrp1": "playwright test tests/CreateChallenge-Test_Cases/TestCoverage-ChallengeConfiguration/ActivityTask_Grp1/custom-challenge-challengeConfig.spec.ts --headed --workers=1 --project='Google Chrome' && npm run Launch_Reporter",
+    "test:ChallengeConfigActivitytaskGrp2": "playwright test tests/CreateChallenge-Test_Cases/TestCoverage-ChallengeConfiguration/Activity_TaskGrp2/custom-challenge-challengeConfig.spec.ts --headed --workers=1 --project='Google Chrome' && npm run Launch_Reporter",
+    "test:ChallengeConfigActivitytaskGrp3": "playwright test tests/CreateChallenge-Test_Cases/TestCoverage-ChallengeConfiguration/Activity_TaskGrp3/custom-challenge-challengeConfig.spec.ts --headed --workers=1 --project='Google Chrome' && npm run Launch_Reporter",
+    "test:Manage_Challenge-Coverage": "playwright test tests/ManageChallenge-Test_Cases/Manage-challenge-Coverage.spec.ts --headed --workers=1 --project='Google Chrome' && npm run Launch_Reporter",
+    "test:Journey_Challenge": "playwright test tests/E2E-flow-create_challenges/journey-challnege.spec.ts --headed --workers=1 --project='Google Chrome' && npm run Launch_Reporter"
     
   },
-
   "devDependencies": {
-    "@playwright/test": "^1.56.0",
+    "@playwright/test": "^1.56.1",
     "@types/node": "^20.19.21",
+    "allure-playwright": "^3.4.2",
     "playwright": "^1.56.0",
     "typescript": "^5.9.3"
+
   }
 }

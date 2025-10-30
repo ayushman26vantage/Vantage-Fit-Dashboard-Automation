@@ -14,7 +14,16 @@ export default defineConfig({
     timeout: 15000, // 15 seconds for assertions
   },
   
-  reporter: 'null',
+  reporter: [
+    ["line"],
+    [
+      "allure-playwright",
+      {
+        resultsDir: "allure-results",
+      },
+    ],
+  ],
+
   
   use: {
     baseURL: 'http://localhost:3000',
